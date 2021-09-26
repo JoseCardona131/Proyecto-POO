@@ -66,33 +66,36 @@ public class Sismo {
         return profundidad;
     }
     
+    // Origen Sismo
     public void setTipoOrigen(TOrigen tipo){
         tipoOrigen = tipo;
     }
     public  TOrigen get(){
         return tipoOrigen;
     }
+    
+    // Magnitud
     public void setMagnitud(double mag){
         magnitud = mag;
     }
     public double getMagnitud(){
         return magnitud;
     }
-    
+    // Localizacion
     public void setLocalizacion(String latitud_longitud){
         localizacion = latitud_longitud;
     }
     public String getlocalizacion(){
         return localizacion;
     }
-    
+    // Provincia
     public void setProvincia(Provincia prov){
         provincia = prov;
     }
     public Provincia getProvincia(){
         return provincia;
     }
-    
+    // Es un sismo maritimo?
     public void setmaritimo(boolean valor){
         maritimo = valor;
     }
@@ -100,7 +103,7 @@ public class Sismo {
     public boolean getmaritimo(){
         return maritimo;
     }
-    
+    // Descripcion
     public void setDescripcion(String description){
         descripcion =  description;
     }
