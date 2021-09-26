@@ -111,6 +111,8 @@ public class Sismo {
         return descripcion;
     }
     
+    //Carlos Carepicha
+    
     @Override
     public String toString(){
         
