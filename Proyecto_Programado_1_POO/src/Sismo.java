@@ -110,9 +110,7 @@ public class Sismo {
     public String getDescripcion(){
         return descripcion;
     }
-    
-    //Carlos Carepicha
-    
+ 
     @Override
     public String toString(){
         
