@@ -65,7 +65,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         jButton4 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        Mensaje_Error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,6 +138,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jRadioButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("No");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel9.setText("¿Sismo Marítimo?");
@@ -185,6 +190,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
 
         buttonGroup2.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jRadioButton3.setSelected(true);
         jRadioButton3.setText("Subducción");
 
         buttonGroup2.add(jRadioButton4);
@@ -221,9 +227,9 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setBackground(new java.awt.Color(55, 55, 55));
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(250, 0, 0));
+        Mensaje_Error.setBackground(new java.awt.Color(55, 55, 55));
+        Mensaje_Error.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Mensaje_Error.setForeground(new java.awt.Color(250, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -316,7 +322,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -396,7 +402,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
@@ -412,7 +418,9 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }//GEN-LAST:event_textField2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // Se quita la visibilidad de la ventana y se desecha (Cerrando el programa)
+        this.setVisible(false);
+        this.dispose();  
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -420,7 +428,8 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
+        jComboBox1.setSelectedItem("NA");
+        jComboBox1.disable();
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -445,7 +454,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
 
     private void GuardarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSismoActionPerformed
         //Se asigna a la etiqueta de error como vacia
-        jLabel6.setText(" ");
+        Mensaje_Error.setText(" ");
 
         //Para revisar fecha
         Pattern pat = Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}");
@@ -476,8 +485,22 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                 if (matMag.matches()){
                     float magnitudD;
                     magnitudD = Float.valueOf(textField3.getText());
-                    System.out.println(magnitudD);
                     
+                    if ((magnitudD >= 2.0)&& (magnitudD <= 10.0)){
+                        System.out.println(magnitudD);
+                        
+                        // Dependiendo de la magnitud se cambia la escala de medición
+                        if (magnitudD >= 6.9){
+                            TipodeMagnitud.setText("MW");
+                        }
+                        else{
+                            TipodeMagnitud.setText("ML");
+                        }
+                    }
+
+                    else{
+                       System.out.println("No"); 
+                    }
                 }
                 else{
                     System.out.println("No");
@@ -489,16 +512,14 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
            
          }
         else {
-            jLabel6.setText("La Fecha es incorrecta");
+            Mensaje_Error.setText("La Fecha es incorrecta");
         }
         
-        
-        
-        
-        
-        
-        
     }//GEN-LAST:event_GuardarSismoActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        jComboBox1.enable();
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -544,6 +565,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GuardarSismo;
+    private javax.swing.JLabel Mensaje_Error;
     private javax.swing.JLabel TipodeMagnitud;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -563,7 +585,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
