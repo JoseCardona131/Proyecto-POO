@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author jcard
@@ -87,7 +89,8 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        VentanaAgregarSismo nueva = new VentanaAgregarSismo(new javax.swing.JFrame(), true);
+        JFrame parentFrame =  (JFrame) this.getParent();
+        VentanaAgregarSismo nueva = new VentanaAgregarSismo(parentFrame, true);
         nueva.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
