@@ -5,10 +5,8 @@
  */
 package Vista;
 
-/**
- *
- * @author jcard
- */
+import Clases.Sismo;
+
 public class VentanaAgregarSismo extends javax.swing.JDialog {
 
     /**
@@ -18,6 +16,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
+    Sismo nuevoSismo = new Sismo();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +37,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        GuardarSismo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -93,8 +92,13 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("hh:mm");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Guardar Sismo");
+        GuardarSismo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GuardarSismo.setText("Guardar Sismo");
+        GuardarSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarSismoActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton2.setText("Salir");
@@ -300,7 +304,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GuardarSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -374,7 +378,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                     .addComponent(jRadioButton7))
                 .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(GuardarSismo)
                     .addComponent(jButton2)
                     .addComponent(jButton4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -423,6 +427,12 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void GuardarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSismoActionPerformed
+        
+        String fecha
+        
+    }//GEN-LAST:event_GuardarSismoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -466,12 +476,12 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton GuardarSismo;
     private javax.swing.JLabel TipodeMagnitud;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel descripcionSismo;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
