@@ -65,6 +65,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         jButton4 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -220,6 +221,10 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setBackground(new java.awt.Color(55, 55, 55));
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(250, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -311,6 +316,8 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -370,21 +377,27 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                     .addComponent(jLabel12)
                     .addComponent(textField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
-                .addGap(24, 24, 24)
-                .addComponent(jLabel14)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
-                    .addComponent(jRadioButton6)
-                    .addComponent(jRadioButton7))
-                .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GuardarSismo)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel14)
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton5)
+                            .addComponent(jRadioButton6)
+                            .addComponent(jRadioButton7))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GuardarSismo)
+                            .addComponent(jButton2)
+                            .addComponent(jButton4))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -431,35 +444,52 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void GuardarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSismoActionPerformed
+        //Se asigna a la etiqueta de error como vacia
+        jLabel6.setText(" ");
+
+        //Para revisar fecha
         Pattern pat = Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}");
         Matcher mat = pat.matcher(textField1.getText());
         
         Pattern patHora = Pattern.compile("^[0-9]{1,2}:[0-9]{2}");
         Matcher matHora = patHora.matcher(textField2.getText());
         
+        //Si la fecha es correcta
         if (mat.matches()&& matHora.matches()) {
-            String dia, mes, anio, hora, minuto;
             int diaI, mesI, anioI, horaI, minutoI;
-            dia = textField1.getText().substring(0,2);
-            mes = textField1.getText().substring(3,5);
-            anio = textField1.getText().substring(6);
-            hora = textField2.getText().substring(0,2);
-            minuto = textField2.getText().substring(3);
-            
-            diaI = parseInt(dia);
-            mesI = parseInt(mes);
-            anioI = parseInt(anio);
-            horaI = parseInt(hora);
-            minutoI = parseInt(minuto);
-            System.out.println(diaI + " " +  mesI + " " +  anioI + " " + horaI + " " + minutoI);
             
             
+            diaI = parseInt(textField1.getText().substring(0,2));
+            mesI = parseInt(textField1.getText().substring(3,5));
+            anioI = parseInt(textField1.getText().substring(6));
+            horaI = parseInt(textField2.getText().substring(0,2));
+            minutoI = parseInt(textField2.getText().substring(3));
             
-            
-            
+            // Para revisar la profundidad
+            Pattern prof = Pattern.compile("^[0-9]+");
+            Matcher matprof = prof.matcher(jTextField1.getText());
+
+            if (matprof.matches()){
+                //Para revisar magnitud
+                Pattern patMag = Pattern.compile("^[0-9]{1,2}.[0-9]");
+                Matcher matMag = patMag.matcher(textField3.getText());
+                if (matMag.matches()){
+                    float magnitudD;
+                    magnitudD = Float.valueOf(textField3.getText());
+                    System.out.println(magnitudD);
+                    
+                }
+                else{
+                    System.out.println("No");
+                }
+            }
+            else{
+                System.out.println("No");
+            }
+           
          }
         else {
-            System.out.println("NO");                                                                                
+            jLabel6.setText("La Fecha es incorrecta");
         }
         
         
@@ -533,6 +563,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -549,4 +580,12 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private java.awt.TextField textField3;
     private java.awt.TextField textField4;
     // End of variables declaration//GEN-END:variables
+
+    private double parsedouble(String magnitud) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private float parsefloat(String magnitud) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
