@@ -6,6 +6,9 @@
 package Vista;
 
 import Clases.Sismo;
+import static java.lang.Integer.parseInt;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VentanaAgregarSismo extends javax.swing.JDialog {
 
@@ -428,8 +431,42 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void GuardarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSismoActionPerformed
+        Pattern pat = Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}");
+        Matcher mat = pat.matcher(textField1.getText());
         
-        String fecha
+        Pattern patHora = Pattern.compile("^[0-9]{1,2}:[0-9]{2}");
+        Matcher matHora = patHora.matcher(textField2.getText());
+        
+        if (mat.matches()&& matHora.matches()) {
+            String dia, mes, anio, hora, minuto;
+            int diaI, mesI, anioI, horaI, minutoI;
+            dia = textField1.getText().substring(0,2);
+            mes = textField1.getText().substring(3,5);
+            anio = textField1.getText().substring(6);
+            hora = textField2.getText().substring(0,2);
+            minuto = textField2.getText().substring(3);
+            
+            diaI = parseInt(dia);
+            mesI = parseInt(mes);
+            anioI = parseInt(anio);
+            horaI = parseInt(hora);
+            minutoI = parseInt(minuto);
+            System.out.println(diaI + " " +  mesI + " " +  anioI + " " + horaI + " " + minutoI);
+            
+            
+            
+            
+            
+         }
+        else {
+            System.out.println("NO");                                                                                
+        }
+        
+        
+        
+        
+        
+        
         
     }//GEN-LAST:event_GuardarSismoActionPerformed
 
