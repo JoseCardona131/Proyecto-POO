@@ -32,7 +32,7 @@ public class Sismo {
     
     private boolean maritimo;
     
-    private String descripcion;
+    private DescripcionSismo descripcion;
     
     // Métodos
     
@@ -105,10 +105,10 @@ public class Sismo {
         return maritimo;
     }
     // Descripcion
-    public void setDescripcion(String description){
+    public void setDescripcion(DescripcionSismo description){
         descripcion =  description;
     }
-    public String getDescripcion(){
+    public DescripcionSismo getDescripcion(){
         return descripcion;
     }
  

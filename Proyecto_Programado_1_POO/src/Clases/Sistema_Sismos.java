@@ -115,7 +115,7 @@ public class Sistema_Sismos {
     }
     
     //Modificar Descripcion Sismo
-    public boolean modificarSismoDescripcion(String descripcion, String nuevadescripcion){
+    public boolean modificarSismoDescripcion(DescripcionSismo descripcion, DescripcionSismo nuevadescripcion){
         for(Sismo actual : sismosRegistrados){
             if(actual.getDescripcion().equals(descripcion)){
                 actual.setDescripcion(nuevadescripcion);

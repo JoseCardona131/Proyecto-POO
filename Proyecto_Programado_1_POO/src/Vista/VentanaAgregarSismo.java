@@ -178,6 +178,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jButton3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("Ver Dirección en Mapa");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel13.setText("Descripción:");
@@ -449,7 +454,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }//GEN-LAST:event_jRadioButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void GuardarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarSismoActionPerformed
@@ -486,7 +491,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                     float magnitudD;
                     magnitudD = Float.valueOf(textField3.getText());
                     
-                    if ((magnitudD >= 2.0)&& (magnitudD <= 10.0)){
+                    if ((magnitudD >= 2.0)){
                         System.out.println(magnitudD);
                         
                         // Dependiendo de la magnitud se cambia la escala de medición
@@ -498,8 +503,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         }
                     }
 
-                    else{
+                    else if(magnitudD >= 0.1){
                        System.out.println("No"); 
+                    }
+                    else{
+                        System.out.println("No"); 
                     }
                 }
                 else{
@@ -521,6 +529,9 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jComboBox1.enable();
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+    }//GEN-LAST:event_jButton3ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -562,7 +573,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GuardarSismo;
     private javax.swing.JLabel Mensaje_Error;

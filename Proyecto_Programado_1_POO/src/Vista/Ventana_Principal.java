@@ -161,9 +161,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
     
     // Botón para ver el registro de sismos
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VentanaTablaSismos registroSismos = new VentanaTablaSismos();
-        registroSismos.setVisible(true);
-        registroSismos.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+         new VentanaTablaDatosSismos(this,true).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
