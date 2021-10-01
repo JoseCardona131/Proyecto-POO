@@ -18,7 +18,7 @@ public class Sismo {
     // Atributos
     private String nombre;
     
-    private GregorianCalendar fecha_hora;
+    private GregorianCalendar fecha_hora = new GregorianCalendar();
     
     private double profundidad;
     
