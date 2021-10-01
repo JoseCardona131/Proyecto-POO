@@ -538,7 +538,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                 //
                 //
                 //
-                System.out.println(diaI + ""+mesI+ ""+anioI + ""+horaI + ""+ minutoI+"");
                 copia_prueba.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
             
                 // Para revisar la profundidad del sismo y que solo consista de numeros
@@ -608,8 +607,10 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         copia_prueba.setMagnitud(magnitudD);
                         
                         // Se pasa a revisar la longitud y latitud
-                        // Ejemplo:
+                        // Ejemplos:
                         // 40° 24' 59'' N; 03° 42' 09'' O
+                        // 9°52'13.6"N 83°57'34.2"W
+                        // Puede tener punto o no
                         
                         // Carlos Ayuda
                         Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\"[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\"[A-Z]{1}");
