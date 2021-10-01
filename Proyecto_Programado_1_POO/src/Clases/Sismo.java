@@ -115,6 +115,6 @@ public class Sismo {
     @Override
     public String toString(){
         
-        return "El nombre del sismo es: ";
+        return "El nombre del sismo es: " + this.nombre;
     }
 }

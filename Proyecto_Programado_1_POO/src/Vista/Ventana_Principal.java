@@ -1,10 +1,12 @@
 package Vista;
 
-/**
- *
- * @author jcard
- */
+import Clases.Sistema_Sismos;
+
+
 public class Ventana_Principal extends javax.swing.JFrame {
+    
+    //Inicializar un sistema de sismos
+    Sistema_Sismos sistema_sismo = new Sistema_Sismos();
 
     public Ventana_Principal() {
         initComponents();
@@ -162,10 +164,13 @@ public class Ventana_Principal extends javax.swing.JFrame {
     // Botón para ver el registro de sismos
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          new VentanaTablaDatosSismos(this,true).setVisible(true);
+         
+         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         new VentanaEstadisticas(this,true).setVisible(true);
+        //new VentanaEstadisticas(this,true).setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
     
     // Botón Salir

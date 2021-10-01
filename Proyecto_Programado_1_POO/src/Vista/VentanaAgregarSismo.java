@@ -5,13 +5,19 @@
  */
 package Vista;
 
+//Importamos clases necesarias
 import Clases.DescripcionSismo;
+import Clases.Provincia;
 import Clases.Sismo;
+import Clases.Sistema_Sismos;
+import Clases.TOrigen;
 import static java.lang.Integer.parseInt;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class VentanaAgregarSismo extends javax.swing.JDialog {
+    
+    Sistema_Sismos sistema_sismo = new Sistema_Sismos();
 
     // Método Constructor
     public VentanaAgregarSismo(java.awt.Frame parent, boolean modal) {
@@ -195,6 +201,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Sub.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         Sub.setSelected(true);
         Sub.setText("Subducción");
+        Sub.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubActionPerformed(evt);
+            }
+        });
 
         TiposOrigen.add(Choque);
         Choque.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -208,10 +219,20 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         TiposOrigen.add(local);
         local.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         local.setText("Tectónico por falla local ");
+        local.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                localActionPerformed(evt);
+            }
+        });
 
         TiposOrigen.add(Intra);
         Intra.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         Intra.setText("Intra placa ");
+        Intra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IntraActionPerformed(evt);
+            }
+        });
 
         TiposOrigen.add(deformacion);
         deformacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -500,17 +521,14 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Mensaje_Error.setText(" ");
         
         Sismo copia_prueba = new Sismo();
-        System.out.println(copia_prueba);
         // Primero se obtiene y se revisa el nombre
         String nombre = NombreSismo.getText();
         
-        // Falta comparar el nombre con todo el resto de la lista de sismos
-        //
-        //
-        //
-        //
         // Este if será si no esta vacio el nombre
-        if(!"".equals(nombre)){
+        if(!"".equals(nombre) && !sistema_sismo.consultar_sismo_nombre(nombre)){
+            
+            //Se le asigna el nombre al sismo
+            copia_prueba.setNombre(nombre);
             
             // Se pasa a revisar  la fecha
             // Se verifica si sigue la estructura dd/mm/aaaa
@@ -538,6 +556,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                 //
                 //
                 //
+                //Se le asigna la fecha al sismno
                 copia_prueba.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
             
                 // Para revisar la profundidad del sismo y que solo consista de numeros
@@ -547,7 +566,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                 // Si la profuncidad es correcta
                 if (matprof.matches()){
                     
-                    // Se guarda
+                    // Se guarda la profundidad al sismo
                     copia_prueba.setProfundidad(parseInt(Profundidad.getText()));
                     
                     // Para reviisar la magnitud del sismo
@@ -559,8 +578,8 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                     if (matMag.matches()){
                         
                         // Se convierte el número a float
-                        float magnitudD;
-                        magnitudD = Float.valueOf(magnitud.getText());
+                        double magnitudD;
+                        magnitudD = Double.parseDouble(magnitud.getText());
                         
                         // Dependiendo de la magnitud se cambia la escala de medición y se define una descripcion
                         if (magnitudD < 2.0){
@@ -606,6 +625,68 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         // Se setea la magnitud del sismo 
                         copia_prueba.setMagnitud(magnitudD);
                         
+                        //Revisar cual es el origen
+                        //Se setea el origen del sismo
+                        if(Sub.isSelected()){
+                            copia_prueba.setTipoOrigen(TOrigen.SUBDUCCION);
+                        }
+                        else if(local.isSelected()){
+                            copia_prueba.setTipoOrigen(TOrigen.TECTONICO_FALLA_LOCAL);
+                        }
+                        else if(Choque.isSelected()){
+                            copia_prueba.setTipoOrigen(TOrigen.CHOQUE_PLACAS);
+                        }
+                        else if(Intra.isSelected()){
+                            copia_prueba.setTipoOrigen(TOrigen.INTRA_PLACA);
+                        }
+                        else if(deformacion.isSelected()){
+                            copia_prueba.setTipoOrigen(TOrigen.DEFORMACION_INTERNA);
+                        }
+                        else{
+                            Mensaje_Error.setText("Debe seleccionar el tipo de origen");
+                        }
+                        
+                        //Obtener provincia a la que pertenece
+                        String provincia = (String) Provincias.getSelectedItem();
+                        if(provincia.equals("Cartago")){
+                            copia_prueba.setProvincia(Provincia.CARTAGO);
+                        }
+                        else if(provincia.equals("San Jose")){
+                            copia_prueba.setProvincia(Provincia.SANJOSE);
+                        }
+                        else if(provincia.equals("Heredia")){
+                            copia_prueba.setProvincia(Provincia.HEREDIA);
+                        }
+                        else if(provincia.equals("Alajuela")){
+                            copia_prueba.setProvincia(Provincia.ALAJUELA);
+                        }
+                        else if(provincia.equals("Guanacaste")){
+                            copia_prueba.setProvincia(Provincia.GUANACASTE);
+                        }
+                        else if(provincia.equals("Limon")){
+                            copia_prueba.setProvincia(Provincia.LIMON);
+                        }
+                        else if(provincia.equals("Puntarenas")){
+                            copia_prueba.setProvincia(Provincia.PUNTARENAS);
+                        }
+                        else if(provincia.equals("N/A")){
+                            copia_prueba.setProvincia(Provincia.NA);
+                        }
+                        else{
+                            Mensaje_Error.setText("Debe seleccionar una provincia");
+                        }
+                        
+                        //Obtener si es maritimo o no
+                        if(jRadioButton1.isSelected()){
+                            copia_prueba.setmaritimo(true);
+                        }
+                        else if(jRadioButton2.isSelected()){
+                            copia_prueba.setmaritimo(false);
+                        }
+                        else{
+                            Mensaje_Error.setText("Debe indicar si es maritimo");
+                        }
+                        
                         // Se pasa a revisar la longitud y latitud
                         // Ejemplos:
                         // 40° 24' 59'' N; 03° 42' 09'' O
@@ -613,14 +694,15 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         // Puede tener punto o no
                         
                         // Carlos Ayuda
-                        Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\"[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\"[A-Z]{1}");
+                        Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}");
                         Matcher latLongMat = pat_lat_long.matcher(LatitudLongitud.getText());
                         
+                        
                         if (latLongMat.matches()){
-                            System.out.println("Si");
+                            sistema_sismo.agregarSismo(copia_prueba);
                         }
                         else{
-                            System.out.println("No");
+                            Mensaje_Error.setText("La localización no es valida");
                         }
                         
                     }
@@ -641,7 +723,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
             }
         }
         else{
-            Mensaje_Error.setText("El nombre del sismo no es válido");    
+            Mensaje_Error.setText("El nombre del sismo no es válido o Ya ha sido agregado");    
         }
     }//GEN-LAST:event_GuardarSismoActionPerformed
     
@@ -658,6 +740,18 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private void NombreSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreSismoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreSismoActionPerformed
+
+    private void SubActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SubActionPerformed
+
+    private void localActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_localActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_localActionPerformed
+
+    private void IntraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IntraActionPerformed
     /**
      * @param args the command line arguments
      */

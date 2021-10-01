@@ -12,8 +12,8 @@ import java.util.ArrayList;
  */
 public class Sistema_Sismos {
     
-    private ArrayList<Sismo> sismosRegistrados = new ArrayList();
-    private ArrayList<interesadoNotificacion> interesadosNotificaciones = new ArrayList();
+    private static ArrayList<Sismo> sismosRegistrados = new ArrayList();
+    private static ArrayList<interesadoNotificacion> interesadosNotificaciones = new ArrayList();
 
     
     
@@ -134,9 +134,18 @@ public class Sistema_Sismos {
                 return true;
             }
         }
-        System.out.println("false");
+
         return false;
            
+    }
+    
+    public boolean consultar_sismo_nombre(String nombre){
+        for(Sismo actual : sismosRegistrados){
+            if(actual.getNombre().equals(nombre)){
+                return true;
+            }
+        }
+        return false;
     }
     
     // Eliminar Sismo
@@ -225,8 +234,11 @@ public class Sistema_Sismos {
 
     }
     
-    
-
+    public void ver(){
+        for(Sismo actual: sismosRegistrados){
+            System.out.println(actual.toString());
+        }
+    }
 }
     
 

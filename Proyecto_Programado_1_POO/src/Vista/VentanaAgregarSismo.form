@@ -535,6 +535,9 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Subducci&#xf3;n"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SubActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="Choque">
       <Properties>
@@ -560,6 +563,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Tect&#xf3;nico por falla local "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="localActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="Intra">
       <Properties>
@@ -571,6 +577,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Intra placa "/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="IntraActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="deformacion">
       <Properties>
