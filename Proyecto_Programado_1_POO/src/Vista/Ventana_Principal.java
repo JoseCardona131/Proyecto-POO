@@ -1,12 +1,22 @@
 package Vista;
 
+import Clases.DescripcionSismo;
+import Clases.Sismo;
 import Clases.Sistema_Sismos;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import static java.lang.Integer.parseInt;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class Ventana_Principal extends javax.swing.JFrame {
     
     //Inicializar un sistema de sismos
-    Sistema_Sismos sistema_sismo = new Sistema_Sismos();
+    static Sistema_Sismos sistema_sismo = new Sistema_Sismos();
 
     public Ventana_Principal() {
         initComponents();
@@ -161,10 +171,121 @@ public class Ventana_Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    public static void leerArchivoExcel() throws FileNotFoundException, IOException {
+        FileInputStream archivo = new FileInputStream("InformacionSismos.xlsx");
+        XSSFWorkbook libro = new XSSFWorkbook(archivo);
+        XSSFSheet hoja = libro.getSheetAt(0);
+        
+        int numero_Filas = hoja.getLastRowNum();
+        for(int i = 0;i <= numero_Filas; i++){
+            Row fila = hoja.getRow(i);
+            int numero_Columnas = fila.getLastCellNum();
+            
+            Sismo nuevo = new Sismo();
+            
+            for(int j = 0; j < numero_Columnas; j++){
+                Cell celda = fila.getCell(j);
+                
+                
+                switch(j){
+                    
+                    case 0:
+                        //Agregar nombre al sismo
+                        nuevo.setNombre(celda.getStringCellValue());
+                        break;
+                     
+                    case 1:
+                        //Agregar la fecha del sismo
+                        String fecha_hora = celda.getStringCellValue();
+                        //Solo realizaremos la conversion de string a numero en el caso de que no hayamos obtenido el titulo de la celda
+                        if(!fecha_hora.equals("Fecha_Hora")){
+                            int diaI, mesI, anioI, horaI, minutoI;
+                            // Se convierten los datos a int
+                            diaI = parseInt(fecha_hora.substring(0,2));
+                            mesI = parseInt(fecha_hora.substring(3,5));
+                            anioI = parseInt(fecha_hora.substring(6,10));
+                            horaI = parseInt(fecha_hora.substring(13,15));
+                            minutoI = parseInt(fecha_hora.substring(16,18));
+
+                            nuevo.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
+                        
+                        }
+                        
+                        break;    
+                    
+                    case 2:
+                        //Agregar descripcion
+                        String descripcion = celda.getStringCellValue();
+                        switch(descripcion){
+                            case "Micro":
+                                nuevo.setDescripcion(DescripcionSismo.Micro);
+                            case "Menor":
+                                nuevo.setDescripcion(DescripcionSismo.Menor);
+                            case "Ligero":
+                                nuevo.setDescripcion(DescripcionSismo.Ligero);
+                            case "Moderado":
+                                nuevo.setDescripcion(DescripcionSismo.Moderado);
+                            case "Fuerte":
+                                nuevo.setDescripcion(DescripcionSismo.Fuerte);
+                            case "Mayor":
+                                nuevo.setDescripcion(DescripcionSismo.Mayor);
+                            case "Gran":
+                                nuevo.setDescripcion(DescripcionSismo.Gran);
+                            case "Epico":
+                                nuevo.setDescripcion(DescripcionSismo.Epico);
+                        }
+                        break;   
+                    
+                    case 3:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;
+                        
+                    case 4:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;    
+                        
+                        
+                    case 5:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;    
+                        
+                        
+                    case 6:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;    
+                        
+                    case 7:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;
+                        
+                        
+                    case 8:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;    
+                        
+                    case 9:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;    
+                        
+                    case 10:
+                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        break;
+               
+                        
+                }
+                
+            }
+            sistema_sismo.agregarSismo(nuevo);
+            
+        }
+    }
+    
     // Botón para ver el registro de sismos
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         new VentanaTablaDatosSismos(this,true).setVisible(true);
+
+        new VentanaTablaDatosSismos(this,true).setVisible(true);
          
+           
          
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -196,12 +317,15 @@ public class Ventana_Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        leerArchivoExcel(); 
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -219,7 +343,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Ventana_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
