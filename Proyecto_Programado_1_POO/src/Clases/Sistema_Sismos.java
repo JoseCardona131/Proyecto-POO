@@ -6,6 +6,7 @@
 package Clases;
 
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author monge
@@ -234,10 +235,32 @@ public class Sistema_Sismos {
 
     }
     
-    public void ver(){
-        for(Sismo actual: sismosRegistrados){
-            System.out.println(actual.toString());
+    //Metodo para generar la tabla
+    public static DefaultTableModel cargarSismos(){
+        Object [] encabezado = {"Nombre", "Fecha y Hora", "Descripcion", "Magnitud", "Profundidad", "Origen", "Latitud", "Longitud","Localizacion","Provincia","Maritimo"};
+        DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, sismosRegistrados.size());
+        for(int i = 0; i < tabla_datos.getRowCount(); i++){
+            Sismo sismo = sismosRegistrados.get(i);
+            //Asiganr datos a la tabla
+            tabla_datos.setValueAt(sismo.getNombre(), i, 0);
+            tabla_datos.setValueAt(sismo.getDescripcion(), i, 2);
+            tabla_datos.setValueAt(sismo.getMagnitud(), i, 3);
+            tabla_datos.setValueAt(sismo.getProfundidad(), i, 4);
+            tabla_datos.setValueAt(sismo.getOrigen(), i, 5);
+            tabla_datos.setValueAt(sismo.getLatitud(), i, 6);
+            tabla_datos.setValueAt(sismo.getLongitud(), i, 7);
+            tabla_datos.setValueAt(sismo.getlocalizacion(), i, 8);
+            tabla_datos.setValueAt(sismo.getProvincia(), i, 9);
+            tabla_datos.setValueAt(sismo.getmaritimo(), i, 10);
+            System.out.println(sismo.getProvincia());
+            
+            //Asignar la fecha al calendario
+            String fecha_hora = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+            tabla_datos.setValueAt(fecha_hora, i, 1);
+            
+        
         }
+        return tabla_datos;
     }
 }
     

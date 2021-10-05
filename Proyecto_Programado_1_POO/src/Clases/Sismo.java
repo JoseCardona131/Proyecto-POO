@@ -1,6 +1,7 @@
 package Clases;
 
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /*
@@ -18,7 +19,7 @@ public class Sismo {
     // Atributos
     private String nombre;
     
-    private GregorianCalendar fecha_hora = new GregorianCalendar();
+    private Date fecha_hora = new Date();
     
     private double profundidad;
     
@@ -56,10 +57,14 @@ public class Sismo {
     
     // Fecha y hora
     public void setFechaHora(int anio, int mes, int dia, int hora, int minuto){
-        fecha_hora.set(anio,mes,dia,hora,minuto);
+        fecha_hora.setDate(dia);
+        fecha_hora.setMonth(mes);
+        fecha_hora.setYear(anio);
+        fecha_hora.setHours(hora);
+        fecha_hora.setMinutes(minuto);
     }
     
-    public GregorianCalendar getFechaHora(){
+    public Date getFechaHora(){
         return fecha_hora;
     }
     
@@ -76,7 +81,7 @@ public class Sismo {
     public void setTipoOrigen(TOrigen tipo){
         tipoOrigen = tipo;
     }
-    public  TOrigen get(){
+    public  TOrigen getOrigen(){
         return tipoOrigen;
     }
     

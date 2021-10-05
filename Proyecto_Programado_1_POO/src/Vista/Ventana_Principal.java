@@ -179,12 +179,12 @@ public class Ventana_Principal extends javax.swing.JFrame {
         XSSFSheet hoja = libro.getSheetAt(0);
         
         int numero_Filas = hoja.getLastRowNum();
-        for(int i = 0;i <= numero_Filas; i++){
+        for(int i = 0;i < numero_Filas; i++){
             Row fila = hoja.getRow(i);
             int numero_Columnas = fila.getLastCellNum();
             
             Sismo nuevo = new Sismo();
-            
+            System.out.println(i);
             for(int j = 0; j < numero_Columnas; j++){
                 Cell celda = fila.getCell(j);
                 
@@ -193,6 +193,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                     
                     case 0:
                         //Agregar nombre al sismo
+                        
                         nuevo.setNombre(celda.getStringCellValue());
                         break;
                      
@@ -208,7 +209,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
                             anioI = parseInt(fecha_hora.substring(6,10));
                             horaI = parseInt(fecha_hora.substring(13,15));
                             minutoI = parseInt(fecha_hora.substring(16,18));
-
                             nuevo.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
                         
                         }
@@ -262,7 +262,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         //Agregar profundidad
                         try{
                             int profundidad = (int) celda.getNumericCellValue();
-                            nuevo.setMagnitud(profundidad);
+                            nuevo.setProfundidad(profundidad);
                             break;
                         }
                         catch(IllegalStateException ex){
@@ -277,7 +277,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                             case "Subducción":
                                 nuevo.setTipoOrigen(TOrigen.SUBDUCCION);
                                 break;
-                            case "Choque de PLacas":
+                            case "Choque de Placas":
                                 nuevo.setTipoOrigen(TOrigen.CHOQUE_PLACAS);
                                 break;
 
@@ -330,7 +330,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         //Agregar provincia del sismo
                         String provincia = celda.getStringCellValue();
                         switch(provincia){
-                            case "N/A":
+                            case "NA":
                                 nuevo.setProvincia(Provincia.NA);
                                 break;
                             case "Cartago":

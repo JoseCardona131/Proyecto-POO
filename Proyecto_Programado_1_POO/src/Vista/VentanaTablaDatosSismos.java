@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Clases.Sistema_Sismos;
 import javax.swing.JFrame;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
  * @author jcard
  */
 public class VentanaTablaDatosSismos extends javax.swing.JDialog {
+    
 
     /**
      * Creates new form VentanaTablaDatosSismos
@@ -19,6 +21,7 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     public VentanaTablaDatosSismos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        TablaDatos.setModel(Sistema_Sismos.cargarSismos());
     }
 
     /**
@@ -33,6 +36,8 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaDatos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -55,18 +60,34 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
             }
         });
 
+        TablaDatos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        TablaDatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(TablaDatos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jButton2)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton2)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +97,9 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(519, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,8 +143,12 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(VentanaTablaDatosSismos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the dialog */
+        
+        //Agregar datos a la tabla
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 VentanaTablaDatosSismos dialog = new VentanaTablaDatosSismos(new javax.swing.JFrame(), true);
@@ -137,8 +164,10 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaDatos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
