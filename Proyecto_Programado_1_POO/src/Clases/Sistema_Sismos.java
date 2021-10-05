@@ -7,6 +7,12 @@ package Clases;
 
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.statistics.HistogramDataset;
 /**
  *
  * @author monge
@@ -235,7 +241,7 @@ public class Sistema_Sismos {
 
     }
     
-    //Metodo para generar la tabla
+    //Metodo para generar la tabla de datos
     public static DefaultTableModel cargarSismos(){
         Object [] encabezado = {"Nombre", "Fecha y Hora", "Descripcion", "Magnitud", "Profundidad", "Origen", "Latitud", "Longitud","Localizacion","Provincia","Maritimo"};
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, sismosRegistrados.size());
@@ -252,7 +258,6 @@ public class Sistema_Sismos {
             tabla_datos.setValueAt(sismo.getlocalizacion(), i, 8);
             tabla_datos.setValueAt(sismo.getProvincia(), i, 9);
             tabla_datos.setValueAt(sismo.getmaritimo(), i, 10);
-            System.out.println(sismo.getProvincia());
             
             //Asignar la fecha al calendario
             String fecha_hora = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
@@ -261,6 +266,83 @@ public class Sistema_Sismos {
         
         }
         return tabla_datos;
+    }
+    
+    //Metodos para graficar los datos
+    public JFreeChart cantidad_sismos_provincia(){
+        HistogramDataset datos = new HistogramDataset();
+        int cartago = 0, alajuela = 0, heredia = 0, guanacaste = 0, limon = 0, sanjose = 0,puntarenas = 0, NA = 0;
+        for(Sismo actual: sismosRegistrados){
+            switch(actual.getProvincia()){
+                case CARTAGO:
+                    cartago += 1; 
+                    break;
+                case SANJOSE:
+                    sanjose += 1;
+                    break;
+                case HEREDIA:
+                    heredia += 1;
+                    break;
+                case ALAJUELA:
+                    alajuela += 1;
+                    break;
+                case GUANACASTE:
+                    guanacaste += 1;
+                    break;
+                case PUNTARENAS:
+                    puntarenas += 1;
+                    break;
+                case LIMON:
+                    limon += 1;
+                    break;
+                case NA:
+                    NA += 1;
+                    break;
+            }
+        }
+        
+        double cantidades [] = {cartago,sanjose, heredia, alajuela, puntarenas, guanacaste, limon, NA};
+        
+        datos.addSeries("Cantidad de Sismos por Provincia", cantidades, 20);
+        
+        JFreeChart grafica = ChartFactory.createHistogram("Cantidad de Sismos por Provincia", "Provincias", "Cantidad", datos, PlotOrientation.VERTICAL, true, true, false);
+        
+        return grafica;
+    }
+    
+    public JFreeChart cantidad_sismos_origen(){
+        DefaultPieDataset datos = new DefaultPieDataset();
+        int subduccion = 0, choque_placas = 0, tectonico_falla_local = 0, intra_placa = 0, deformacion_interna = 0;
+        for(Sismo actual: sismosRegistrados){
+            switch(actual.getOrigen()){
+                case SUBDUCCION:
+                    subduccion += 1; 
+                    break;
+                case CHOQUE_PLACAS:
+                    choque_placas += 1;
+                    break;
+                case TECTONICO_FALLA_LOCAL:
+                    tectonico_falla_local += 1;
+                    break;
+                case INTRA_PLACA:
+                    choque_placas += 1;
+                    break;
+                case DEFORMACION_INTERNA:
+                    intra_placa += 1;
+                    break;
+            }
+        }
+
+        
+        datos.setValue("Subduccion", subduccion);
+        datos.setValue("Choque de Placas", choque_placas);
+        datos.setValue("Tectonico por falla local", tectonico_falla_local);
+        datos.setValue("Intra placa", choque_placas);
+        datos.setValue("Deformacion interna", intra_placa);
+        JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, true, false);
+        
+        return grafica;
+    
     }
 }
     

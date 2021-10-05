@@ -184,7 +184,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
             int numero_Columnas = fila.getLastCellNum();
             
             Sismo nuevo = new Sismo();
-            System.out.println(i);
             for(int j = 0; j < numero_Columnas; j++){
                 Cell celda = fila.getCell(j);
                 
@@ -240,7 +239,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                             case "Gran":
                                 nuevo.setDescripcion(DescripcionSismo.Gran);
                                 break;
-                            case "Epico":
+                            case "Épico":
                                 nuevo.setDescripcion(DescripcionSismo.Epico);
                                 break;
                         }
