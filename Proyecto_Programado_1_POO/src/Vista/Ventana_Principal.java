@@ -1,8 +1,10 @@
 package Vista;
 
 import Clases.DescripcionSismo;
+import Clases.Provincia;
 import Clases.Sismo;
 import Clases.Sistema_Sismos;
+import Clases.TOrigen;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -219,56 +221,152 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         switch(descripcion){
                             case "Micro":
                                 nuevo.setDescripcion(DescripcionSismo.Micro);
+                                break;
                             case "Menor":
                                 nuevo.setDescripcion(DescripcionSismo.Menor);
+                                break;
                             case "Ligero":
                                 nuevo.setDescripcion(DescripcionSismo.Ligero);
+                                break;
                             case "Moderado":
                                 nuevo.setDescripcion(DescripcionSismo.Moderado);
+                                break;
                             case "Fuerte":
                                 nuevo.setDescripcion(DescripcionSismo.Fuerte);
+                                break;
                             case "Mayor":
                                 nuevo.setDescripcion(DescripcionSismo.Mayor);
+                                break;
                             case "Gran":
                                 nuevo.setDescripcion(DescripcionSismo.Gran);
+                                break;
                             case "Epico":
                                 nuevo.setDescripcion(DescripcionSismo.Epico);
+                                break;
                         }
                         break;   
                     
                     case 3:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
-                        break;
+                        //Agregar magnitud del sismo
+                        try{
+                            double magnitud = Float.valueOf(celda.getStringCellValue());
+                            nuevo.setMagnitud(magnitud);
+                            break;
+                        }
+                        catch(NumberFormatException ex){
+                            break;
+                        }
+                        
                         
                     case 4:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
-                        break;    
+                        //Agregar profundidad
+                        try{
+                            int profundidad = (int) celda.getNumericCellValue();
+                            nuevo.setMagnitud(profundidad);
+                            break;
+                        }
+                        catch(IllegalStateException ex){
+                            break;
+                        }
                         
                         
                     case 5:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        //Agregar origen del sismo
+                        String origen = celda.getStringCellValue();
+                        switch(origen){
+                            case "Subducción":
+                                nuevo.setTipoOrigen(TOrigen.SUBDUCCION);
+                                break;
+                            case "Choque de PLacas":
+                                nuevo.setTipoOrigen(TOrigen.CHOQUE_PLACAS);
+                                break;
+
+                            case "Tectónico por falla local":
+                                nuevo.setTipoOrigen(TOrigen.TECTONICO_FALLA_LOCAL);
+                                break;
+                        
+                            case "Intra placa":
+                                nuevo.setTipoOrigen(TOrigen.INTRA_PLACA);
+                                break;
+                        
+                            case "Deformación Interna":
+                                nuevo.setTipoOrigen(TOrigen.DEFORMACION_INTERNA);
+                                break;
+                        }
+
+                
                         break;    
                         
                         
                     case 6:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
-                        break;    
+                        //Agregar latitud
+                        try{
+                            double latitud = celda.getNumericCellValue();
+                            nuevo.setLatitud(latitud);
+                            break;
+                        }
+                        catch(IllegalStateException ex){
+                            break;
+                        }
                         
                     case 7:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
-                        break;
+                        //Agregar longitud
+                        try{
+                            double longitud = celda.getNumericCellValue();
+                            nuevo.setLongitud(longitud);
+                            break;
+                        }
+                        catch(IllegalStateException ex){
+                            break;
+                        }
                         
                         
                     case 8:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        //Agregar localizacion
+                        nuevo.setLocalizacion(celda.getStringCellValue());
                         break;    
                         
                     case 9:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        //Agregar provincia del sismo
+                        String provincia = celda.getStringCellValue();
+                        switch(provincia){
+                            case "N/A":
+                                nuevo.setProvincia(Provincia.NA);
+                                break;
+                            case "Cartago":
+                                nuevo.setProvincia(Provincia.CARTAGO);
+                                break;
+                            case "Alajuela":
+                                nuevo.setProvincia(Provincia.ALAJUELA);
+                                break;
+                            case "Limon":
+                                nuevo.setProvincia(Provincia.LIMON);
+                                break;
+                            case "San Jose":
+                                nuevo.setProvincia(Provincia.SANJOSE);
+                                break;
+                            case "Puntarenas":
+                                nuevo.setProvincia(Provincia.PUNTARENAS);
+                                break;
+                            case "Heredia":
+                                nuevo.setProvincia(Provincia.HEREDIA);
+                                break;
+                            case "Guanacaste":
+                                nuevo.setProvincia(Provincia.GUANACASTE);
+                                break;
+                        
+                        }
                         break;    
                         
                     case 10:
-                        //System.out.print(celda.getNumericCellValue() + "                  ");
+                        //Agregar si es maritimo o no
+                        String maritimo = celda.getStringCellValue();
+                        if(maritimo.equals("Si")){
+                            nuevo.setmaritimo(true);
+                        }
+                        else if(maritimo.equals("No")){
+                            nuevo.setmaritimo(false);
+                        }
                         break;
                
                         

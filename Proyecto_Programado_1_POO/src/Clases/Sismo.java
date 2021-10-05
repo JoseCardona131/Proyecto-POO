@@ -34,6 +34,11 @@ public class Sismo {
     
     private DescripcionSismo descripcion;
     
+    private double Latitud;
+    
+    private double Longitud;
+    
+    
     // Métodos
     
     // Constructor
@@ -110,6 +115,22 @@ public class Sismo {
     }
     public DescripcionSismo getDescripcion(){
         return descripcion;
+    }
+    
+    public void setLatitud(double Latitud) {
+        this.Latitud = Latitud;
+    }
+
+    public void setLongitud(double Longitud) {
+        this.Longitud = Longitud;
+    }
+
+    public double getLatitud() {
+        return Latitud;
+    }
+
+    public double getLongitud() {
+        return Longitud;
     }
  
     @Override
