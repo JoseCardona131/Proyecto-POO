@@ -59,6 +59,11 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jButton4.setText("Clasificación de sismos por magnitud ");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jButton5.setText("Cantidad de sismos por provincia");
@@ -121,6 +126,13 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
         Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "origen");
         nueva.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        JFrame parentFrame =  (JFrame) this.getParent();
+        Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "magnitud");
+        nueva.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

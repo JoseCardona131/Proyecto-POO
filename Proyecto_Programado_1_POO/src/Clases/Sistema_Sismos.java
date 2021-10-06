@@ -344,6 +344,58 @@ public class Sistema_Sismos {
         return grafica;
     
     }
+    
+    //Cantidad de sismos por rango de fechas
+    
+    //Cantidad de sismos por mes en un año
+    
+    public JFreeChart cantidad_sismos_magnitud(){
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        int menor_2 = 0, _3 = 0, _4 = 0, _5 = 0, _6 = 0, _7 = 0, _9 = 0, _10 = 0;
+        for(Sismo actual: sismosRegistrados){
+            if (actual.getMagnitud() < 2.0){
+                menor_2 +=1;
+            }
+            else if((actual.getMagnitud() >= 2.0) &&(actual.getMagnitud() < 4.0)){
+                _3 += 1;
+            }
+            else if((actual.getMagnitud() >= 4.0) &&(actual.getMagnitud() < 5.0)){
+                _4 += 1;
+            }
+            else if((actual.getMagnitud() >= 5.0) &&(actual.getMagnitud() < 6.0)){
+                _5 += 1;
+            }
+            else if((actual.getMagnitud() >= 6.0) &&(actual.getMagnitud() < 7.0)){
+                _6 += 1;
+            }
+            else if((actual.getMagnitud() >= 7.0) &&(actual.getMagnitud() < 8.0)){
+                _7 += 1;
+            }
+            else if((actual.getMagnitud() >= 8.0) &&(actual.getMagnitud() < 10.0)){
+                _9 += 1;
+            }
+            else{
+               _10 += 1;
+            }
+        }
+
+        
+        datos.setValue(menor_2, "Magnitud", "Menor a 2");
+        datos.setValue(_3, "Magnitud", "Entre 2 y 3.9");
+        datos.setValue(_4, "Magnitud", "Entre 4 y 4.9");
+        datos.setValue(_5, "Magnitud", "Entre 5 y 5.9");
+        datos.setValue(_6, "Magnitud", "Entre 6 y 6.9");
+        datos.setValue(_7, "Magnitud", "Entre 7 y 7.9");
+        datos.setValue(_9, "Magnitud", "Entre 8 y 9.9");
+        datos.setValue(_10, "Magnitud", "Mayor a 10");
+        
+        JFreeChart grafica = ChartFactory.createBarChart("Cantidad de sismos por Magnitud", "Cantidad de sismos", "Magnitudes", datos, PlotOrientation.VERTICAL, true, true, false);
+        
+        return grafica;
+    
+    }
+    
+    
 }
     
 
