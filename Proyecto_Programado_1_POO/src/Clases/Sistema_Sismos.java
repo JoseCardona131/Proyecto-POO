@@ -332,6 +332,8 @@ public class Sistema_Sismos {
                     break;
             }
         }
+        
+        // Se va a sacar el porcentaje de cada
 
         
         datos.setValue("Subduccion", subduccion);
@@ -339,7 +341,7 @@ public class Sistema_Sismos {
         datos.setValue("Tectonico por falla local", tectonico_falla_local);
         datos.setValue("Intra placa", choque_placas);
         datos.setValue("Deformacion interna", intra_placa);
-        JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, true, false);
+        JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, false, false);
         
         return grafica;
     
