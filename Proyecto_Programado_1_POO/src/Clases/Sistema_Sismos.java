@@ -22,13 +22,9 @@ public class Sistema_Sismos {
     private static ArrayList<Sismo> sismosRegistrados = new ArrayList();
     private static ArrayList<interesadoNotificacion> interesadosNotificaciones = new ArrayList();
 
-    
-    
     public Sistema_Sismos() {
     }
 
-   
-    
     /* ACME SISMOS */
     
     // Aregar Sismo
@@ -168,6 +164,11 @@ public class Sistema_Sismos {
 
     }
     
+    // Para obtener las listas
+    public ArrayList<Sismo> obtenerListaSismos(){
+        return 
+    }
+    
     
     /* ACME INTERESADOS NOTIFICACIONES */
     
@@ -227,6 +228,27 @@ public class Sistema_Sismos {
         return false;
            
     }
+    // Consultar si ya esta registrado un correo
+     public boolean ConsultarCorreoUsuario(String mail){
+        for(interesadoNotificacion actual : interesadosNotificaciones){
+            if(actual.getCorreo().equals(mail)){
+                return true;
+            }
+        }
+        return false; 
+         
+     }
+     
+     // Consultar si ya esta registrado un numero
+     public boolean ConsultarNumeroUsuario(String numero){
+        for(interesadoNotificacion actual : interesadosNotificaciones){
+            if(actual.getNumeroTelefono().equals(numero)){
+                return true;
+            }
+        }
+        return false; 
+         
+     }
     
     //Eliminar Interesados
     public boolean eliminarInteresadoNotificacion(interesadoNotificacion interesado){
