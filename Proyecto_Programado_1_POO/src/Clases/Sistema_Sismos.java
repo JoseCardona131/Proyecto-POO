@@ -343,8 +343,7 @@ public class Sistema_Sismos {
         datos.setValue("Deformacion interna", intra_placa);
         JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, false, false);
         
-        return grafica;
-    
+        return grafica; 
     }
     
     //Cantidad de sismos por rango de fechas

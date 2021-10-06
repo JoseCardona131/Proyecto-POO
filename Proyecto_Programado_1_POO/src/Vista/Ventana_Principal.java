@@ -173,7 +173,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    public static void leerArchivoExcel() throws FileNotFoundException, IOException {
+    public static void leerArchivoRegistroSismos() throws FileNotFoundException, IOException {
         FileInputStream archivo = new FileInputStream("InformacionSismos.xlsx");
         XSSFWorkbook libro = new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
@@ -376,14 +376,15 @@ public class Ventana_Principal extends javax.swing.JFrame {
             
         }
     }
+    public static void leerArchivoExcel1() throws FileNotFoundException, IOException {
+    
+    
+    }
     
     // Botón para ver el registro de sismos
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        new VentanaTablaDatosSismos(this,true).setVisible(true);
-         
-           
-         
+        new VentanaTablaDatosSismos(this,true).setVisible(true);      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -421,7 +422,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         
-        leerArchivoExcel(); 
+        leerArchivoRegistroSismos(); 
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
