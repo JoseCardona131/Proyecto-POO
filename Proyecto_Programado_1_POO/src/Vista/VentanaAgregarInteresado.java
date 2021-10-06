@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Clases.Provincia;
 import Clases.Sistema_Sismos;
 import Clases.interesadoNotificacion;
 import java.util.regex.Matcher;
@@ -24,6 +25,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
     private void initComponents() {
 
         jRadioButton8 = new javax.swing.JRadioButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         Titulo = new java.awt.Label();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
@@ -279,6 +281,52 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                         
                         if (number.equals("")){
                             interesadoAgregar.setNumeroTelefono("NA");
+                            
+                            // Se pasan a revisar las provincias
+                            int contador_provincias_marcadas = 0;
+
+                                if (Alajuela.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.ALAJUELA);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Cartago.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.CARTAGO);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Guanacaste.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.GUANACASTE);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Heredia.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.HEREDIA);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Limon.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.LIMON);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Mar.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.NA);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (Puntarenas.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.PUNTARENAS);
+                                    contador_provincias_marcadas++;
+                                }
+                                if (SanJ.isSelected()){
+                                    interesadoAgregar.AgregarProvinciaInteres(Provincia.SANJOSE);
+                                    contador_provincias_marcadas++;
+                                }
+
+                                // Se revisa si se agrego al menos una provincia
+                                if (contador_provincias_marcadas != 0){
+
+                                    sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
+                                    System.out.println("El sismo se agrego con éxito");
+                                }
+                                else{
+                                    MenError.setText("Seleccione al menos una provincia");
+                                }  
                         }
                         // Si no esta vacío se revisa si es válido
                         else{
@@ -288,7 +336,60 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                             
                             // Si el patrón encaja
                             if (matnum.matches()){
-                                interesadoAgregar.setNumeroTelefono(number);
+                                
+                                // Se revisa que el número no este registrado
+                                if (sistema_sismo.ConsultarNumeroUsuario(number)){
+                                    MenError.setText("Este número ya esta registrado");  
+                                }
+                                else{
+                                    interesadoAgregar.setNumeroTelefono(number);
+                                
+                                    // Se revisarán las provincias seleccionadas
+                                    int contador_provincias_marcadas = 0;
+
+                                    if (Alajuela.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.ALAJUELA);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Cartago.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.CARTAGO);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Guanacaste.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.GUANACASTE);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Heredia.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.HEREDIA);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Limon.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.LIMON);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Mar.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.NA);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (Puntarenas.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.PUNTARENAS);
+                                        contador_provincias_marcadas++;
+                                    }
+                                    if (SanJ.isSelected()){
+                                        interesadoAgregar.AgregarProvinciaInteres(Provincia.SANJOSE);
+                                        contador_provincias_marcadas++;
+                                    }
+
+                                    // Se revisa si se agrego al menos una provincia
+                                    if (contador_provincias_marcadas != 0){
+
+                                        sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
+                                        System.out.println("El sismo se agrego con éxito");
+                                    }
+                                    else{
+                                        MenError.setText("Seleccione al menos una provincia");
+                                    }
+                                }  
                             }
                             else{
                                 MenError.setText("Por favor inserte un número válido");
@@ -314,23 +415,70 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                             
                     // Si el patrón encaja
                     if (matnum.matches()){
-                        interesadoAgregar.setNumeroTelefono(number);
-                        interesadoAgregar.setCorreo("NA");
-                    }
+                        
+                        if (sistema_sismo.ConsultarNumeroUsuario(number)){
+                            MenError.setText("Este número ya esta registrado");
+                        }
+                        else{
+                            interesadoAgregar.setNumeroTelefono(number);
+                            interesadoAgregar.setCorreo("NA");
+
+                            // Se revisarán las provincias seleccionadas
+                            int contador_provincias_marcadas = 0;
+
+                            if (Alajuela.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.ALAJUELA);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Cartago.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.CARTAGO);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Guanacaste.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.GUANACASTE);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Heredia.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.HEREDIA);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Limon.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.LIMON);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Mar.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.NA);
+                                contador_provincias_marcadas++;
+                            }
+                            if (Puntarenas.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.PUNTARENAS);
+                                contador_provincias_marcadas++;
+                            }
+                            if (SanJ.isSelected()){
+                                interesadoAgregar.AgregarProvinciaInteres(Provincia.SANJOSE);
+                                contador_provincias_marcadas++;
+                            }
+
+                            // Se revisa si se agrego al menos una provincia
+                            if (contador_provincias_marcadas != 0){
+
+                                sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
+                                System.out.println("El interesado se agrego con éxito");
+                            }
+                            else{
+                                MenError.setText("Seleccione al menos una provincia");
+                            }  
+                        }
+                    }    
                     else{
                         MenError.setText("Por favor inserte un número válido");
-                    }
-                    
-                }
-                
-                
-            }
-            
+                    }  
+                }  
+            }  
         }
         else{
             MenError.setText("El nombre no puede ser vacío");
         }
-        
     }//GEN-LAST:event_botonApuntarseActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -421,6 +569,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
     private java.awt.Button botonApuntarse;
     private java.awt.Button botonSalir;
     private java.awt.Button botonVaciar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private java.awt.TextField correo;
     private javax.swing.JRadioButton jRadioButton8;
     private java.awt.Label label1;

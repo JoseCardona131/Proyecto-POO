@@ -164,12 +164,6 @@ public class Sistema_Sismos {
 
     }
     
-    // Para obtener las listas
-    public ArrayList<Sismo> obtenerListaSismos(){
-        return 
-    }
-    
-    
     /* ACME INTERESADOS NOTIFICACIONES */
     
     // Agregar Interesados
