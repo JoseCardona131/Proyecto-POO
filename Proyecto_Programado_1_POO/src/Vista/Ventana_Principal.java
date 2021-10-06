@@ -376,9 +376,39 @@ public class Ventana_Principal extends javax.swing.JFrame {
             
         }
     }
-    public static void leerArchivoExcel1() throws FileNotFoundException, IOException {
+    public static void leerArchivoInteresados() throws FileNotFoundException, IOException {
+        FileInputStream archivo = new FileInputStream("InteresadosNotificaciones.xlsx");
+        XSSFWorkbook libro = new XSSFWorkbook(archivo);
+        XSSFSheet hoja = libro.getSheetAt(0);
+        
+        int numero_Filas = hoja.getLastRowNum();
+        
+        for(int i = 1;i < numero_Filas; i++){
+            Row fila = hoja.getRow(i);
+            int numero_Columnas = fila.getLastCellNum();
+            
+            Sismo nuevo = new Sismo();
+            for(int j = 0; j < numero_Columnas; j++){
+                Cell celda = fila.getCell(j);
+                
+                switch(j){
+                    
+                    case 0:
+                        System.out.println(celda.getStringCellValue());
+                    
+                    case 1:
+                        System.out.println(celda.getStringCellValue());
+                        
+                    case 2:
+                        System.out.println(celda.getNumericCellValue());
+                        
+                    case 3:
+                        System.out.println(celda.getStringCellValue());
+                
+                }
     
-    
+            }
+        }
     }
     
     // Botón para ver el registro de sismos
@@ -423,6 +453,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
          */
         
         leerArchivoRegistroSismos(); 
+        leerArchivoInteresados();
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -440,7 +471,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Ventana_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
