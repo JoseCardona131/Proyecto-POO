@@ -5,11 +5,13 @@ import Clases.Provincia;
 import Clases.Sismo;
 import Clases.Sistema_Sismos;
 import Clases.TOrigen;
+import Clases.interesadoNotificacion;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import org.apache.poi.ss.usermodel.Cell;
+import static org.apache.poi.ss.usermodel.CellType.BLANK;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -217,6 +219,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                     case 2:
                         //Agregar descripcion
                         String descripcion = celda.getStringCellValue();
+                        
                         switch(descripcion){
                             case "Micro":
                                 nuevo.setDescripcion(DescripcionSismo.Micro);
@@ -387,23 +390,40 @@ public class Ventana_Principal extends javax.swing.JFrame {
             Row fila = hoja.getRow(i);
             int numero_Columnas = fila.getLastCellNum();
             
-            Sismo nuevo = new Sismo();
+            interesadoNotificacion nuevoInteresado = new interesadoNotificacion();
+            
             for(int j = 0; j < numero_Columnas; j++){
                 Cell celda = fila.getCell(j);
                 
                 switch(j){
                     
                     case 0:
+                        nuevoInteresado.setNombre(celda.getStringCellValue());
                         System.out.println(celda.getStringCellValue());
-                    
+                         
                     case 1:
-                        System.out.println(celda.getStringCellValue());
-                        
+                        if (celda.getCellTypeEnum() != BLANK){
+                           nuevoInteresado.setCorreo(celda.getStringCellValue());   
+                           System.out.println(celda.getStringCellValue());
+                        }
+                        else{
+                            nuevoInteresado.setCorreo("NA");
+                        }
+                        break;
+                             
                     case 2:
-                        System.out.println(celda.getNumericCellValue());
-                        
+                        if (celda.getCellTypeEnum() != BLANK){
+                            nuevoInteresado.setNumeroTelefono(celda.getStringCellValue());
+                            System.out.println(celda.getStringCellValue());
+                        }
+                        else{
+                            nuevoInteresado.setNumeroTelefono("NA");
+                        }
+                        break;
+                          
                     case 3:
                         System.out.println(celda.getStringCellValue());
+                        break;
                 
                 }
     
