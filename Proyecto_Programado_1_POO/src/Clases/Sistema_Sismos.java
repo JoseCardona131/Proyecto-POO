@@ -379,18 +379,18 @@ public class Sistema_Sismos {
             }
         }
 
-        
-        datos.setValue(menor_2, "Magnitud", "Menor a 2");
-        datos.setValue(_3, "Magnitud", "Entre 2 y 3.9");
-        datos.setValue(_4, "Magnitud", "Entre 4 y 4.9");
-        datos.setValue(_5, "Magnitud", "Entre 5 y 5.9");
-        datos.setValue(_6, "Magnitud", "Entre 6 y 6.9");
-        datos.setValue(_7, "Magnitud", "Entre 7 y 7.9");
-        datos.setValue(_9, "Magnitud", "Entre 8 y 9.9");
-        datos.setValue(_10, "Magnitud", "Mayor a 10");
+        // Micro, Menor, Ligero, Moderado,Fuerte,Mayor,Gran,Epico
+        datos.setValue(menor_2, "Micro", "0.1 - 1.9");
+        datos.setValue(_3, "Menor", "2.0 - 3.9");
+        datos.setValue(_4, "Ligero", " 4.0 - 4.9");
+        datos.setValue(_5, "Moderado", " 5.0 - 5.9");
+        datos.setValue(_6, "Fuerte", " 6.0 - 6.9");
+        datos.setValue(_7, "Mayor", "    7.0 - 7.9");
+        datos.setValue(_9, "Gran", "    8.0 - 9.9");
+        datos.setValue(_10, "Épico", "    10.0+");
         
         JFreeChart grafica = ChartFactory.createBarChart("Cantidad de sismos por Magnitud", "Cantidad de sismos", "Magnitudes", datos, PlotOrientation.VERTICAL, true, true, false);
-        
+     
         return grafica;
     
     }
