@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Ventana_Principal extends javax.swing.JFrame {
     
     //Inicializar un sistema de sismos
-    static Sistema_Sismos sistema_sismo = new Sistema_Sismos();
+    static Sistema_Sismos sistema_sismos = new Sistema_Sismos();
 
     public Ventana_Principal() {
         initComponents();
@@ -375,7 +375,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 }
                 
             }
-            sistema_sismo.agregarSismo(nuevo);
+            sistema_sismos.agregarSismo(nuevo);
             
         }
     }
@@ -399,12 +399,10 @@ public class Ventana_Principal extends javax.swing.JFrame {
                     
                     case 0:
                         nuevoInteresado.setNombre(celda.getStringCellValue());
-                        System.out.println(celda.getStringCellValue());
                          
                     case 1:
                         if (celda.getCellTypeEnum() != BLANK){
                            nuevoInteresado.setCorreo(celda.getStringCellValue());   
-                           System.out.println(celda.getStringCellValue());
                         }
                         else{
                             nuevoInteresado.setCorreo("NA");
@@ -414,7 +412,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
                     case 2:
                         if (celda.getCellTypeEnum() != BLANK){
                             nuevoInteresado.setNumeroTelefono(celda.getStringCellValue());
-                            System.out.println(celda.getStringCellValue());
                         }
                         else{
                             nuevoInteresado.setNumeroTelefono("NA");
@@ -422,12 +419,46 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         break;
                           
                     case 3:
-                        System.out.println(celda.getStringCellValue());
+                        String listaProvincias = celda.getStringCellValue();
+                        if (listaProvincias.contains("Cartago")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.CARTAGO);
+                            System.out.println("Cartago");
+                        }
+                        if (listaProvincias.contains("San Jose")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.SANJOSE);
+                            System.out.println("San Jose");
+                        }
+                        if (listaProvincias.contains("Puntarenas")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.PUNTARENAS);
+                            System.out.println("Puntarenas");
+                        }
+                        if (listaProvincias.contains("Limón")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.LIMON);
+                            System.out.println("Limón");
+                        }
+                        if (listaProvincias.contains("Guanacaste")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.GUANACASTE);
+                            System.out.println("Guanacaste");
+                        }
+                        if (listaProvincias.contains("Alajuela")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.ALAJUELA);
+                            System.out.println("Alajuela");
+                        }
+                        if (listaProvincias.contains("Heredia")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.HEREDIA);
+                            System.out.println("Heredia");
+                        }
+                        if (listaProvincias.contains("Maritimo")){
+                            nuevoInteresado.AgregarProvinciaInteres(Provincia.NA);
+                            System.out.println("NA");
+                        }
+                        
                         break;
                 
                 }
     
             }
+        sistema_sismos.agregarInteresadosNotificaciones(nuevoInteresado);
         }
     }
     
