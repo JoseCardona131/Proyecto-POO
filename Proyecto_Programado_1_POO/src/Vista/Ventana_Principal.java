@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Ventana_Principal extends javax.swing.JFrame {
     
     //Inicializar un sistema de sismos
-    static Sistema_Sismos sistema_sismos = new Sistema_Sismos();
+    static Sistema_Sismos sistema_sismo = new Sistema_Sismos();
 
     public Ventana_Principal() {
         initComponents();
@@ -38,7 +38,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        ApuntarseNotif = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -109,8 +109,13 @@ public class Ventana_Principal extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton7.setText("Apuntarse para Recibir Notificaciones");
+        ApuntarseNotif.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        ApuntarseNotif.setText("Apuntarse para Recibir Notificaciones");
+        ApuntarseNotif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ApuntarseNotifActionPerformed(evt);
+            }
+        });
 
         jButton8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jButton8.setText("Dejar de Recibir Notificaciones");
@@ -129,7 +134,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ApuntarseNotif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
@@ -162,7 +167,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jButton4)
                 .addGap(94, 94, 94)
-                .addComponent(jButton7)
+                .addComponent(ApuntarseNotif)
                 .addGap(18, 18, 18)
                 .addComponent(jButton8)
                 .addGap(18, 18, 18)
@@ -375,7 +380,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 }
                 
             }
-            sistema_sismos.agregarSismo(nuevo);
+            sistema_sismo.agregarSismo(nuevo);
             
         }
     }
@@ -458,7 +463,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 }
     
             }
-        sistema_sismos.agregarInteresadosNotificaciones(nuevoInteresado);
+        sistema_sismo.agregarInteresadosNotificaciones(nuevoInteresado);
         }
     }
     
@@ -492,6 +497,10 @@ public class Ventana_Principal extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void ApuntarseNotifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApuntarseNotifActionPerformed
+        new VentanaAgregarInteresado(this,true).setVisible(true);
+    }//GEN-LAST:event_ApuntarseNotifActionPerformed
     
     /**
      * @param args the command line arguments
@@ -532,12 +541,12 @@ public class Ventana_Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ApuntarseNotif;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
