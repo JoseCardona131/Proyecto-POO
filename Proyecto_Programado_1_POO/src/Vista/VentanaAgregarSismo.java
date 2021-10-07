@@ -752,7 +752,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                 }
                 // Si la fecha o la hora no son válidas
                 else {
-                    Mensaje_Error.setText("La Fecha es incorrecta");
+                    Mensaje_Error.setText("La Fecha y hora no son ccorrectas");
                 }
             }
         }
