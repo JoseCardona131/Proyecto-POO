@@ -12,6 +12,8 @@ import Clases.Sismo;
 import Clases.Sistema_Sismos;
 import Clases.TOrigen;
 import static java.lang.Integer.parseInt;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +29,36 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     
     // Objeto tipo Sismo, se guardará en la lista de sismos cuando se presione el botón guardar sismo
     Sismo nuevoSismo = new Sismo();
+    
+    // Función para verificar si una fecha es válida, sirve para verificar que un string pueda convertirse a Date correctamente
+    public boolean validarStringFecha(String FechaRevisar){
+        SimpleDateFormat formato_fecha = new SimpleDateFormat("dd/MM/yyyy");
+        formato_fecha.setLenient(false);
+        
+        try
+        {
+           formato_fecha.parse(FechaRevisar.trim());
+        }
+        catch(ParseException pe){
+            return false;
+        }
+        return true;         
+    }
+    
+    // Función para verificar si un tiempo es válido
+    // Función para verificar si una fecha es válida, sirve para saber que un string pueda convertirse a Date correctamente
+    public boolean validarStringTiempo(String TiempoRevisar){
+        SimpleDateFormat formato_tiempo = new SimpleDateFormat("h:mm");
+        formato_tiempo.setLenient(false);   
+        try
+        {
+           formato_tiempo.parse(TiempoRevisar.trim());
+        }
+        catch(ParseException pe){
+            return false;
+        }
+        return true;         
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -523,207 +555,209 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Sismo copia_prueba = new Sismo();
         // Primero se obtiene y se revisa el nombre
         String nombre = NombreSismo.getText();
+      
         
         // Este if será si no esta vacio el nombre
-        if(!"".equals(nombre) && !sistema_sismo.consultar_sismo_nombre(nombre)){
+        if(!"".equals(nombre)){
             
-            //Se le asigna el nombre al sismo
-            copia_prueba.setNombre(nombre);
-            
-            // Se pasa a revisar  la fecha
-            // Se verifica si sigue la estructura dd/mm/aaaa
-            Pattern pat = Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}");
-            Matcher mat = pat.matcher(fecha.getText());
-            
-            // Verifica que la hora sige el patrón hh:mm
-            Pattern patHora = Pattern.compile("^[0-9]{1,2}:[0-9]{2}");
-            Matcher matHora = patHora.matcher(hora.getText());
-            
-            
-
-            if (mat.matches()&& matHora.matches()) {
-                int diaI, mesI, anioI, horaI, minutoI;
-                
-                // Se convierten los datos a int
-                diaI = parseInt(fecha.getText().substring(0,2));
-                mesI = parseInt(fecha.getText().substring(3,5));
-                anioI = parseInt(fecha.getText().substring(6));
-                horaI = parseInt(hora.getText().substring(0,2));
-                minutoI = parseInt(hora.getText().substring(3));
-            
-                // Falta revisar si al fecha es válida y si la hora es válida
-                //
-                //
-                //
-                //
-                //Se le asigna la fecha al sismno
-                copia_prueba.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
-            
-                // Para revisar la profundidad del sismo y que solo consista de numeros
-                Pattern prof = Pattern.compile("^[0-9]+");
-                Matcher matprof = prof.matcher(Profundidad.getText());
-            
-                // Si la profuncidad es correcta
-                if (matprof.matches()){
-                    
-                    // Se guarda la profundidad al sismo
-                    copia_prueba.setProfundidad(parseInt(Profundidad.getText()));
-                    
-                    // Para reviisar la magnitud del sismo
-                    // Revisa que el sismo siga la estructura n.n
-                    Pattern patMag = Pattern.compile("^[0-9]{1,2}.[0-9]");
-                    Matcher matMag = patMag.matcher(magnitud.getText());
-                    
-                    // Si la estructura es correcta
-                    if (matMag.matches()){
-                        
-                        // Se convierte el número a float
-                        double magnitudD;
-                        magnitudD = Double.parseDouble(magnitud.getText());
-                        
-                        // Dependiendo de la magnitud se cambia la escala de medición y se define una descripcion
-                        if (magnitudD < 2.0){
-                            TipodeMagnitud.setText("ML");
-                            descripcionSismo.setText("Micro");
-                            copia_prueba.setDescripcion(DescripcionSismo.Micro);
-                        }
-                        else if((magnitudD >= 2.0) &&(magnitudD < 4.0)){
-                            TipodeMagnitud.setText("ML");
-                            descripcionSismo.setText("Menor");
-                            copia_prueba.setDescripcion(DescripcionSismo.Menor);
-                        }
-                        else if((magnitudD >= 4.0) &&(magnitudD < 5.0)){
-                            TipodeMagnitud.setText("ML");
-                            descripcionSismo.setText("Ligero");
-                            copia_prueba.setDescripcion(DescripcionSismo.Ligero);
-                        }
-                        else if((magnitudD >= 5.0) &&(magnitudD < 6.0)){
-                            TipodeMagnitud.setText("ML");
-                            descripcionSismo.setText("Moderado");
-                            copia_prueba.setDescripcion(DescripcionSismo.Moderado);
-                        }
-                        else if((magnitudD >= 6.0) &&(magnitudD < 7.0)){
-                            TipodeMagnitud.setText("ML");
-                            descripcionSismo.setText("Fuerte");
-                            copia_prueba.setDescripcion(DescripcionSismo.Fuerte);
-                        }
-                        else if((magnitudD >= 7.0) &&(magnitudD < 8.0)){
-                            TipodeMagnitud.setText("MW");
-                            descripcionSismo.setText("Mayor");
-                            copia_prueba.setDescripcion(DescripcionSismo.Mayor);
-                        }
-                        else if((magnitudD >= 8.0) &&(magnitudD < 10.0)){
-                            TipodeMagnitud.setText("MW");
-                            descripcionSismo.setText("Gran");
-                            copia_prueba.setDescripcion(DescripcionSismo.Gran);
-                        }
-                        else{
-                           TipodeMagnitud.setText("MW");
-                           descripcionSismo.setText("Epico");
-                           copia_prueba.setDescripcion(DescripcionSismo.Epico);
-                        }
-                        // Se setea la magnitud del sismo 
-                        copia_prueba.setMagnitud(magnitudD);
-                        
-                        //Revisar cual es el origen
-                        //Se setea el origen del sismo
-                        if(Sub.isSelected()){
-                            copia_prueba.setTipoOrigen(TOrigen.SUBDUCCION);
-                        }
-                        else if(local.isSelected()){
-                            copia_prueba.setTipoOrigen(TOrigen.TECTONICO_FALLA_LOCAL);
-                        }
-                        else if(Choque.isSelected()){
-                            copia_prueba.setTipoOrigen(TOrigen.CHOQUE_PLACAS);
-                        }
-                        else if(Intra.isSelected()){
-                            copia_prueba.setTipoOrigen(TOrigen.INTRA_PLACA);
-                        }
-                        else if(deformacion.isSelected()){
-                            copia_prueba.setTipoOrigen(TOrigen.DEFORMACION_INTERNA);
-                        }
-                        else{
-                            Mensaje_Error.setText("Debe seleccionar el tipo de origen");
-                        }
-                        
-                        //Obtener provincia a la que pertenece
-                        String provincia = (String) Provincias.getSelectedItem();
-                        if(provincia.equals("Cartago")){
-                            copia_prueba.setProvincia(Provincia.CARTAGO);
-                        }
-                        else if(provincia.equals("San Jose")){
-                            copia_prueba.setProvincia(Provincia.SANJOSE);
-                        }
-                        else if(provincia.equals("Heredia")){
-                            copia_prueba.setProvincia(Provincia.HEREDIA);
-                        }
-                        else if(provincia.equals("Alajuela")){
-                            copia_prueba.setProvincia(Provincia.ALAJUELA);
-                        }
-                        else if(provincia.equals("Guanacaste")){
-                            copia_prueba.setProvincia(Provincia.GUANACASTE);
-                        }
-                        else if(provincia.equals("Limon")){
-                            copia_prueba.setProvincia(Provincia.LIMON);
-                        }
-                        else if(provincia.equals("Puntarenas")){
-                            copia_prueba.setProvincia(Provincia.PUNTARENAS);
-                        }
-                        else if(provincia.equals("N/A")){
-                            copia_prueba.setProvincia(Provincia.NA);
-                        }
-                        else{
-                            Mensaje_Error.setText("Debe seleccionar una provincia");
-                        }
-                        
-                        //Obtener si es maritimo o no
-                        if(jRadioButton1.isSelected()){
-                            copia_prueba.setmaritimo(true);
-                        }
-                        else if(jRadioButton2.isSelected()){
-                            copia_prueba.setmaritimo(false);
-                        }
-                        else{
-                            Mensaje_Error.setText("Debe indicar si es maritimo");
-                        }
-                        
-                        // Se pasa a revisar la longitud y latitud
-                        // Ejemplos:
-                        // 40° 24' 59'' N; 03° 42' 09'' O
-                        // 9°52'13.6"N 83°57'34.2"W
-                        // Puede tener punto o no
-                        
-                        // Carlos Ayuda
-                        Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}");
-                        Matcher latLongMat = pat_lat_long.matcher(LatitudLongitud.getText());
-                        
-                        
-                        if (latLongMat.matches()){
-                            sistema_sismo.agregarSismo(copia_prueba);
-                        }
-                        else{
-                            Mensaje_Error.setText("La localización no es valida");
-                        }
-                        
-                    }
-                    // Si la magnitud no es válida
-                    else{
-                        Mensaje_Error.setText("La magnitud no es válida");
-                    }
-                }
-                // Si la profundidad no es válida
-                else{
-                    Mensaje_Error.setText("La profundidad no es válida para el sismo");
-                }
-           
+            // Se revisa si ya ese nombre esta registrado
+            if (sistema_sismo.consultar_sismo_nombre(nombre)){
+                Mensaje_Error.setText("Este nombre de sismo ya esta registrado");
             }
-            // Si la fecha o la hora no son válidas
-            else {
-                Mensaje_Error.setText("La Fecha es incorrecta");
+            // Si el nombre del sismo no esta registrado aún
+            else{
+                //Se le asigna el nombre al sismo
+                copia_prueba.setNombre(nombre);
+
+                // Se pasa a revisar  la fecha
+                // Se verifica si sigue la estructura dd/mm/aaaa
+                Pattern pat = Pattern.compile("^[0-9]{2}/[0-9]{2}/[0-9]{4}");
+                Matcher mat = pat.matcher(fecha.getText());
+
+                // Verifica que la hora siga el patrón hh:mm
+                Pattern patHora = Pattern.compile("^[0-9]{1,2}:[0-9]{2}");
+                Matcher matHora = patHora.matcher(hora.getText());
+
+
+                // Si tanto la fecha como la hora coinciden se sigue adelante
+                if (mat.matches()&& matHora.matches()) {
+                    
+                    // Se revisa si la fecha es válida
+                    if (!validarStringFecha(fecha.getText())){
+                        Mensaje_Error.setText("La fecha no es válida");
+                    }
+                    else{
+                        // Se crean variables para guardar los datos de la fecha y hora
+                        int diaI, mesI, anioI, horaI, minutoI;
+
+                        // Se convierten los datos a integers
+                        diaI = parseInt(fecha.getText().substring(0,2));
+                        mesI = parseInt(fecha.getText().substring(3,5));
+                        anioI = parseInt(fecha.getText().substring(6));
+                        horaI = parseInt(hora.getText().substring(0,2));
+                        minutoI = parseInt(hora.getText().substring(3));
+
+                        //Se le asigna la fecha al sismno
+                        copia_prueba.setFechaHora(anioI, mesI, diaI, horaI, minutoI);
+
+                        // Para revisar la profundidad del sismo y que solo consista de numeros
+                        Pattern prof = Pattern.compile("^[0-9]+");
+                        Matcher matprof = prof.matcher(Profundidad.getText());
+
+                        // Si la profuncidad es correcta
+                        if (matprof.matches()){
+
+                            // Se guarda la profundidad al sismo
+                            copia_prueba.setProfundidad(parseInt(Profundidad.getText()));
+
+                            // Para reviisar la magnitud del sismo
+                            // Revisa que el sismo siga la estructura n.n
+                            Pattern patMag = Pattern.compile("^[0-9]{1,2}.[0-9]");
+                            Matcher matMag = patMag.matcher(magnitud.getText());
+
+                            // Si la estructura es correcta
+                            if (matMag.matches()){
+
+                                // Se convierte el número a float
+                                double magnitudD;
+                                magnitudD = Double.parseDouble(magnitud.getText());
+
+                                // Dependiendo de la magnitud se cambia la escala de medición y se define una descripcion
+                                if (magnitudD < 2.0){
+                                    TipodeMagnitud.setText("ML");
+                                    descripcionSismo.setText("Micro");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Micro);
+                                }
+                                else if((magnitudD >= 2.0) &&(magnitudD < 4.0)){
+                                    TipodeMagnitud.setText("ML");
+                                    descripcionSismo.setText("Menor");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Menor);
+                                }
+                                else if((magnitudD >= 4.0) &&(magnitudD < 5.0)){
+                                    TipodeMagnitud.setText("ML");
+                                    descripcionSismo.setText("Ligero");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Ligero);
+                                }
+                                else if((magnitudD >= 5.0) &&(magnitudD < 6.0)){
+                                    TipodeMagnitud.setText("ML");
+                                    descripcionSismo.setText("Moderado");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Moderado);
+                                }
+                                else if((magnitudD >= 6.0) &&(magnitudD < 7.0)){
+                                    TipodeMagnitud.setText("ML");
+                                    descripcionSismo.setText("Fuerte");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Fuerte);
+                                }
+                                else if((magnitudD >= 7.0) &&(magnitudD < 8.0)){
+                                    TipodeMagnitud.setText("MW");
+                                    descripcionSismo.setText("Mayor");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Mayor);
+                                }
+                                else if((magnitudD >= 8.0) &&(magnitudD < 10.0)){
+                                    TipodeMagnitud.setText("MW");
+                                    descripcionSismo.setText("Gran");
+                                    copia_prueba.setDescripcion(DescripcionSismo.Gran);
+                                }
+                                else{
+                                   TipodeMagnitud.setText("MW");
+                                   descripcionSismo.setText("Epico");
+                                   copia_prueba.setDescripcion(DescripcionSismo.Epico);
+                                }
+                                // Se setea la magnitud del sismo 
+                                copia_prueba.setMagnitud(magnitudD);
+
+                                //Revisar cual es el origen
+                                //Se setea el origen del sismo
+                                if(Sub.isSelected()){
+                                    copia_prueba.setTipoOrigen(TOrigen.SUBDUCCION);
+                                }
+                                else if(local.isSelected()){
+                                    copia_prueba.setTipoOrigen(TOrigen.TECTONICO_FALLA_LOCAL);
+                                }
+                                else if(Choque.isSelected()){
+                                    copia_prueba.setTipoOrigen(TOrigen.CHOQUE_PLACAS);
+                                }
+                                else if(Intra.isSelected()){
+                                    copia_prueba.setTipoOrigen(TOrigen.INTRA_PLACA);
+                                }
+                                else if(deformacion.isSelected()){
+                                    copia_prueba.setTipoOrigen(TOrigen.DEFORMACION_INTERNA);
+                                }
+                                else{
+                                    Mensaje_Error.setText("Debe seleccionar el tipo de origen");
+                                }
+
+                                //Obtener provincia a la que pertenece
+                                String provincia = (String) Provincias.getSelectedItem();
+                                if(provincia.equals("Cartago")){
+                                    copia_prueba.setProvincia(Provincia.CARTAGO);
+                                }
+                                else if(provincia.equals("San Jose")){
+                                    copia_prueba.setProvincia(Provincia.SANJOSE);
+                                }
+                                else if(provincia.equals("Heredia")){
+                                    copia_prueba.setProvincia(Provincia.HEREDIA);
+                                }
+                                else if(provincia.equals("Alajuela")){
+                                    copia_prueba.setProvincia(Provincia.ALAJUELA);
+                                }
+                                else if(provincia.equals("Guanacaste")){
+                                    copia_prueba.setProvincia(Provincia.GUANACASTE);
+                                }
+                                else if(provincia.equals("Limon")){
+                                    copia_prueba.setProvincia(Provincia.LIMON);
+                                }
+                                else if(provincia.equals("Puntarenas")){
+                                    copia_prueba.setProvincia(Provincia.PUNTARENAS);
+                                }
+                                else if(provincia.equals("N/A")){
+                                    copia_prueba.setProvincia(Provincia.NA);
+                                }
+                                else{
+                                    Mensaje_Error.setText("Debe seleccionar una provincia");
+                                }
+
+                                //Obtener si es maritimo o no
+                                if(jRadioButton1.isSelected()){
+                                    copia_prueba.setmaritimo(true);
+                                }
+                                else if(jRadioButton2.isSelected()){
+                                    copia_prueba.setmaritimo(false);
+                                }
+                                else{
+                                    Mensaje_Error.setText("Debe indicar si es maritimo");
+                                }
+
+                                Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}");
+                                Matcher latLongMat = pat_lat_long.matcher(LatitudLongitud.getText());
+
+
+                                if (latLongMat.matches()){
+                                    sistema_sismo.agregarSismo(copia_prueba);
+                                }
+                                else{
+                                    Mensaje_Error.setText("La localización no es valida");
+                                }
+                            }
+                            // Si la magnitud no es válida
+                            else{
+                                Mensaje_Error.setText("La magnitud no es válida");
+                            }
+                        }
+                        // Si la profundidad no es válida
+                        else{
+                            Mensaje_Error.setText("La profundidad no es válida para el sismo");
+                        }   
+                    }
+                }
+                // Si la fecha o la hora no son válidas
+                else {
+                    Mensaje_Error.setText("La Fecha es incorrecta");
+                }
             }
         }
         else{
-            Mensaje_Error.setText("El nombre del sismo no es válido o Ya ha sido agregado");    
+            Mensaje_Error.setText("El nombre del sismo no es válido");    
         }
     }//GEN-LAST:event_GuardarSismoActionPerformed
     

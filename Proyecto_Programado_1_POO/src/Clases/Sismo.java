@@ -1,6 +1,8 @@
 package Clases;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -54,7 +56,7 @@ public class Sismo {
     public String getNombre(){
         return nombre;
     }
-    
+   
     // Fecha y hora
     public void setFechaHora(int anio, int mes, int dia, int hora, int minuto){
         fecha_hora.setDate(dia);
@@ -137,7 +139,7 @@ public class Sismo {
     public double getLongitud() {
         return Longitud;
     }
- 
+    
     @Override
     public String toString(){
         
