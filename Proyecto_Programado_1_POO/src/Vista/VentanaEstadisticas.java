@@ -130,7 +130,7 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
-        Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "magnitud");
+        ventana_graficos_tabulares nueva = new ventana_graficos_tabulares(parentFrame, true, "magnitud");
         nueva.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 

@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 /**
@@ -317,7 +316,49 @@ public class Sistema_Sismos {
             }
         }
         
-        double cantidades [] = {cartago,sanjose, heredia, alajuela, puntarenas, guanacaste, limon, NA};
+        int cont = 0;
+        double cantidades[] = new double[cartago+sanjose+alajuela+heredia+limon+puntarenas+guanacaste+NA];
+        
+        for(int i = 0; i < cartago; i++){
+            cantidades[cont] = 3;
+            cont++;
+        }
+        
+        for(int i = 0; i < sanjose; i++){
+            cantidades[cont] = 1;
+            cont++;
+        }
+         
+        for(int i = 0; i < limon; i++){
+            cantidades[cont] = 7;
+            cont++;
+        }
+          
+        for(int i = 0; i < heredia; i++){
+            cantidades[cont] = 4;
+            cont++;
+        }
+           
+        for(int i = 0; i < alajuela; i++){
+            cantidades[cont] = 2;
+            cont++;
+        }
+            
+        for(int i = 0; i < guanacaste; i++){
+            cantidades[cont] = 5;
+            cont++;
+        }
+             
+        for(int i = 0; i < puntarenas; i++){
+            cantidades[cont] = 6;
+            cont++;
+        }
+              
+        for(int i = 0; i < NA; i++){
+            cantidades[cont] = 9;
+            cont++;
+        }
+
         
         datos.addSeries("Cantidad de Sismos por Provincia", cantidades, 20);
         
@@ -366,8 +407,9 @@ public class Sistema_Sismos {
     
     //Cantidad de sismos por mes en un año
     
-    public JFreeChart cantidad_sismos_magnitud(){
-        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+    public DefaultTableModel cantidad_sismos_magnitud(){
+        Object [] encabezado = {"Magnitud", "Cantidad"};
+        DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, 8);
         int menor_2 = 0, _3 = 0, _4 = 0, _5 = 0, _6 = 0, _7 = 0, _9 = 0, _10 = 0;
         for(Sismo actual: sismosRegistrados){
             if (actual.getMagnitud() < 2.0){
@@ -396,19 +438,33 @@ public class Sistema_Sismos {
             }
         }
 
-        // Micro, Menor, Ligero, Moderado,Fuerte,Mayor,Gran,Epico
-        datos.setValue(menor_2, "Micro", "0.1 - 1.9");
-        datos.setValue(_3, "Menor", "2.0 - 3.9");
-        datos.setValue(_4, "Ligero", " 4.0 - 4.9");
-        datos.setValue(_5, "Moderado", " 5.0 - 5.9");
-        datos.setValue(_6, "Fuerte", " 6.0 - 6.9");
-        datos.setValue(_7, "Mayor", "    7.0 - 7.9");
-        datos.setValue(_9, "Gran", "    8.0 - 9.9");
-        datos.setValue(_10, "Épico", "    10.0+");
+        tabla_datos.setValueAt("0.1 - 1.9", 0, 0);
+        tabla_datos.setValueAt(menor_2, 0, 1);
         
-        JFreeChart grafica = ChartFactory.createBarChart("Cantidad de sismos por Magnitud", "Cantidad de sismos", "Magnitudes", datos, PlotOrientation.VERTICAL, true, true, false);
+        tabla_datos.setValueAt("2.0 - 3.9", 0, 0);
+        tabla_datos.setValueAt(_3, 0, 1);
+        
+        tabla_datos.setValueAt("4.0 - 4.9", 1, 0);
+        tabla_datos.setValueAt(_4, 1, 1);
+        
+        tabla_datos.setValueAt("5.0 - 5.9", 2, 0);
+        tabla_datos.setValueAt(_5, 2, 1);
+        
+        tabla_datos.setValueAt("6.0 - 6.9", 3, 0);
+        tabla_datos.setValueAt(_6, 3, 1);
+        
+        tabla_datos.setValueAt("7.0 - 7.9", 4, 0);
+        tabla_datos.setValueAt(_7, 4, 1);
+        
+        tabla_datos.setValueAt("8.0 - 9.9", 5, 0);
+        tabla_datos.setValueAt(_9, 5, 1);
+        
+        tabla_datos.setValueAt("10.0+", 6, 0);
+        tabla_datos.setValueAt(_10, 6, 1);
+        
+       
      
-        return grafica;
+        return tabla_datos;
     
     }
     
