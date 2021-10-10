@@ -16,11 +16,8 @@ import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.mail.MessagingException;
 
 public class VentanaAgregarSismo extends javax.swing.JDialog {
     
@@ -290,7 +287,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         });
 
         Mensaje_Error.setBackground(new java.awt.Color(55, 55, 55));
-        Mensaje_Error.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Mensaje_Error.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         Mensaje_Error.setForeground(new java.awt.Color(250, 0, 0));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -380,13 +377,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addComponent(GuardarSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(VaciarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Mensaje_Error, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(84, 84, 84))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(211, 211, 211))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -408,7 +403,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addComponent(deformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(DisplayMapa)
                                 .addGap(66, 66, 66))))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,23 +487,20 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                             .addComponent(local)
                             .addComponent(Intra)
                             .addComponent(deformacion))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(GuardarSismo)
-                                    .addComponent(VaciarDatos))
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(GuardarSismo)
+                                .addComponent(VaciarDatos))
+                            .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Salir)
                         .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(292, Short.MAX_VALUE)
+                    .addContainerGap(305, Short.MAX_VALUE)
                     .addComponent(Latitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(188, 188, 188)))
         );
@@ -582,12 +573,8 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Mensaje_Error.setText(" ");
         
         Sismo copia_prueba = new Sismo();
-        ArrayList<interesadoNotificacion> interesados = new ArrayList<interesadoNotificacion>();
-        interesados = sistema_sismo.retorna_lista();
-        for(interesadoNotificacion actual: interesados){
-            actual.enviarNotificacion();
-            break;
-        }
+        
+     
         // Primero se obtiene y se revisa el nombre
         String nombre = NombreSismo.getText();
       
@@ -772,11 +759,28 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
 
                                 if (latMat.matches() && LongMat.matches()){
                                     
+                                    //Agregar latitud y longitud
                                     float lat = Float.valueOf(Latitud.getText());
                                     float lon = Float.valueOf(Longitud.getText());
                                     copia_prueba.setLatitud(lat);
                                     copia_prueba.setLongitud(lon);
+                                    
+                                    //Agregar el sismo
                                     sistema_sismo.agregarSismo(copia_prueba);
+                                    
+                                    //Enviar notificacion a los usuarios
+                                    ArrayList<interesadoNotificacion> interesados = new ArrayList<interesadoNotificacion>();
+                                    interesados = sistema_sismo.retorna_lista();
+                                    for(interesadoNotificacion actual: interesados){
+                                        ArrayList<Provincia> prov = new ArrayList<Provincia>();
+                                        prov = actual.getProvinciasInteres();
+                                        for(Provincia p: prov){
+                                            if(p.equals(copia_prueba.getProvincia())){
+                                                actual.enviarNotificacion(actual.getCorreo());
+                                                break;
+                                            }
+                                        }
+                                    }
                                     
                                 }
                                 else{

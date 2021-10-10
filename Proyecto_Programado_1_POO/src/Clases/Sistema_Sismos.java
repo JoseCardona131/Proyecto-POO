@@ -376,10 +376,10 @@ public class Sistema_Sismos {
                     tectonico_falla_local += 1;
                     break;
                 case INTRA_PLACA:
-                    choque_placas += 1;
+                    intra_placa += 1;
                     break;
                 case DEFORMACION_INTERNA:
-                    intra_placa += 1;
+                    deformacion_interna += 1;
                     break;
             }
         }
