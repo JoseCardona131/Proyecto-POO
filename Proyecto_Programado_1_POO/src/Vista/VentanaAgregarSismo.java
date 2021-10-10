@@ -11,11 +11,16 @@ import Clases.Provincia;
 import Clases.Sismo;
 import Clases.Sistema_Sismos;
 import Clases.TOrigen;
+import Clases.interesadoNotificacion;
 import static java.lang.Integer.parseInt;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.mail.MessagingException;
 
 public class VentanaAgregarSismo extends javax.swing.JDialog {
     
@@ -88,7 +93,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         magnitud = new java.awt.TextField();
         TipodeMagnitud = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        LatitudLongitud = new java.awt.TextField();
+        Longitud = new java.awt.TextField();
         DisplayMapa = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         descripcionSismo = new javax.swing.JLabel();
@@ -102,6 +107,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Mensaje_Error = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         NombreSismo = new java.awt.TextField();
+        Latitud = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -205,9 +211,9 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel12.setText("Latitud y Longitud del Epicentro:");
 
-        LatitudLongitud.addActionListener(new java.awt.event.ActionListener() {
+        Longitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LatitudLongitudActionPerformed(evt);
+                LongitudActionPerformed(evt);
             }
         });
 
@@ -297,35 +303,20 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
             }
         });
 
+        Latitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LatitudActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Sub, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Choque)
-                                .addGap(18, 18, 18)
-                                .addComponent(local))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(LatitudLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Intra)
-                                .addGap(18, 18, 18)
-                                .addComponent(deformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(DisplayMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                .addGap(81, 81, 81))))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -333,7 +324,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addGap(2, 2, 2)
                                 .addComponent(NombreSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,14 +342,14 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(descripcionSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(Provincias, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel10))
                         .addGap(87, 87, 87))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,17 +376,46 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)))
                         .addGap(95, 95, 95))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(GuardarSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(VaciarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(84, 84, 84))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Mensaje_Error, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(211, 211, 211))))
+                        .addGap(211, 211, 211))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Sub, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Choque)
+                                .addGap(18, 18, 18)
+                                .addComponent(local)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Longitud, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Intra)
+                                .addGap(18, 18, 18)
+                                .addComponent(deformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(DisplayMapa)
+                                .addGap(66, 66, 66))))))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(247, 247, 247)
+                    .addComponent(Latitud, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(458, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,11 +473,15 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(descripcionSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(LatitudLongitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DisplayMapa))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(Longitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DisplayMapa, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -483,6 +507,11 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Salir)
                         .addContainerGap())))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(292, Short.MAX_VALUE)
+                    .addComponent(Latitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(188, 188, 188)))
         );
 
         pack();
@@ -517,9 +546,9 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         // No hace nada
     }//GEN-LAST:event_ProvinciasActionPerformed
 
-    private void LatitudLongitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LatitudLongitudActionPerformed
+    private void LongitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LongitudActionPerformed
         // No hace nada
-    }//GEN-LAST:event_LatitudLongitudActionPerformed
+    }//GEN-LAST:event_LongitudActionPerformed
 
     private void ChoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChoqueActionPerformed
         // No hace nada
@@ -537,7 +566,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Profundidad.setText("");
         fecha.setText("");
         hora.setText("");
-        LatitudLongitud.setText("");
+        Longitud.setText("");
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(true);
         Provincias.setSelectedItem("Cartago");
@@ -553,6 +582,12 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Mensaje_Error.setText(" ");
         
         Sismo copia_prueba = new Sismo();
+        ArrayList<interesadoNotificacion> interesados = new ArrayList<interesadoNotificacion>();
+        interesados = sistema_sismo.retorna_lista();
+        for(interesadoNotificacion actual: interesados){
+            actual.enviarNotificacion();
+            break;
+        }
         // Primero se obtiene y se revisa el nombre
         String nombre = NombreSismo.getText();
       
@@ -728,12 +763,21 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                     Mensaje_Error.setText("Debe indicar si es maritimo");
                                 }
 
-                                Pattern pat_lat_long = Pattern.compile("^[0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}; [0-9]{1,2}[.]?[0-9]?°[0-9]{1,2}[.]?[0-9]?'[0-9]{1,2}[.]?[0-9]?\\''[A-Z]{1}");
-                                Matcher latLongMat = pat_lat_long.matcher(LatitudLongitud.getText());
+                                Pattern pat_lat = Pattern.compile("^[-]?[0-9]+[.]?[0-9]+");
+                                Matcher latMat = pat_lat.matcher(Latitud.getText());
+                                
+                                Pattern pat_long = Pattern.compile("^[-]?[0-9]+[.]?[0-9]+");
+                                Matcher LongMat = pat_long.matcher(Longitud.getText());
 
 
-                                if (latLongMat.matches()){
+                                if (latMat.matches() && LongMat.matches()){
+                                    
+                                    float lat = Float.valueOf(Latitud.getText());
+                                    float lon = Float.valueOf(Longitud.getText());
+                                    copia_prueba.setLatitud(lat);
+                                    copia_prueba.setLongitud(lon);
                                     sistema_sismo.agregarSismo(copia_prueba);
+                                    
                                 }
                                 else{
                                     Mensaje_Error.setText("La localización no es valida");
@@ -786,6 +830,10 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private void IntraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IntraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IntraActionPerformed
+
+    private void LatitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LatitudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LatitudActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -832,7 +880,8 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     private javax.swing.JButton DisplayMapa;
     private javax.swing.JButton GuardarSismo;
     private javax.swing.JRadioButton Intra;
-    private java.awt.TextField LatitudLongitud;
+    private java.awt.TextField Latitud;
+    private java.awt.TextField Longitud;
     private javax.swing.JLabel Mensaje_Error;
     private java.awt.TextField NombreSismo;
     private javax.swing.ButtonGroup OpcionesMar;

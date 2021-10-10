@@ -31,13 +31,11 @@ public class Sistema_Sismos {
     public boolean agregarSismo(Sismo sismo){
         for(Sismo actual: sismosRegistrados){
             if(actual.getNombre().equals(sismo.getNombre())){
-                System.out.println("false");
                 return false;
 
             }
         }
         sismosRegistrados.add(sismo);
-        System.out.println("true");
         return true;
 
     }
@@ -47,11 +45,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getNombre().equals(nombre)){
                 actual.setNombre(nuevoNombre);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -60,11 +56,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getProfundidad() == profundidad ){
                 actual.setProfundidad(nuevoProfundidad);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -74,11 +68,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getMagnitud() == magnitud){
                 actual.setProfundidad(nuevoMagnitud);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -87,11 +79,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getlocalizacion().equals(localizacion)){
                 actual.setLocalizacion(nuevaLocalizacion);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -109,11 +99,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getmaritimo() == maritimo){
                 actual.setmaritimo(nuevoMaritimo);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -122,11 +110,9 @@ public class Sistema_Sismos {
         for(Sismo actual : sismosRegistrados){
             if(actual.getDescripcion().equals(descripcion)){
                 actual.setDescripcion(nuevadescripcion);
-                System.out.println("true");
                 return true;
             }
         }
-        System.out.println("false");
         return false;
     }
     
@@ -255,6 +241,11 @@ public class Sistema_Sismos {
         }
         return false;
 
+    }
+    
+    //Retornar listas de interesados
+    public ArrayList<interesadoNotificacion> retorna_lista(){
+       return Sistema_Sismos.interesadosNotificaciones;
     }
     
     //Metodo para generar la tabla de datos

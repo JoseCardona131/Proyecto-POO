@@ -5,6 +5,23 @@
  */
 package Clases;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import javax.swing.JOptionPane;
 
 public class interesadoNotificacion {
     
@@ -82,5 +99,67 @@ public class interesadoNotificacion {
         }
         return false;
      }
+     
+     public void enviarNotificacion(){
+         /*
+         Properties propiedad = new Properties();
+         propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");
+         propiedad.setProperty("mail.smtp.starttls.enable", "true");
+         propiedad.setProperty("mail.smtp.port", "587");
+         propiedad.setProperty("mail.smtp.auth", "true");
+         
+
+         
+         String correoEnvia = "sistemasismos@gmail.com";
+         String contra = "sistema1234";
+         
+         
+        Session sesion = Session.getInstance(propiedad, new Authenticator() {
+             @Override
+             protected PasswordAuthentication getPasswordAuthentication() {
+                 return new PasswordAuthentication(correoEnvia, contra);
+             }
+          
+                 
+        });
+        
+        
+        String destinario = "jcardonar@estudiantec.cr";
+        
+        
+        Message mensaje = prepararMensjaje(sesion, correoEnvia, destinario);
+        
+        
+        try {
+            Transport.send(mensaje);
+            System.out.println("Enviado");
+        } catch (MessagingException ex) {
+            Logger.getLogger(interesadoNotificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+         */
+
+        
+     }
+
+    private static Message prepararMensjaje(Session sesion, String correoEnvia, String destinario) {
+        
+        try {
+            System.out.println("hh");
+                    
+            Message mensaje = new MimeMessage(sesion);
+            mensaje.setFrom(new InternetAddress(correoEnvia));
+            mensaje.setRecipient(Message.RecipientType.TO, new InternetAddress(destinario));
+            mensaje.setSubject("Nuevo sismo agregado!");
+            mensaje.setText("Nuevo sismo de provincia de interes agregado");
+            
+            return mensaje;
+        } catch (MessagingException ex) {
+            Logger.getLogger(interesadoNotificacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+         
     
 }
