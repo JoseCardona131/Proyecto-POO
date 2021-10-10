@@ -34,6 +34,8 @@ public class Ventana_graficos extends javax.swing.JDialog {
             case "origen":
                 grafica = sistema.cantidad_sismos_origen();
                 break;
+            case "mes":
+                grafica = sistema.cantidadSismosMes();
                 
               
         }

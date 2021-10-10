@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 /**
@@ -284,6 +285,7 @@ public class Sistema_Sismos {
     }
     
     //Metodos para graficar los datos
+    //Metodo para obtener la cantidad de sismos por provincia
     public JFreeChart cantidad_sismos_provincia(){
         HistogramDataset datos = new HistogramDataset();
         int cartago = 0, alajuela = 0, heredia = 0, guanacaste = 0, limon = 0, sanjose = 0,puntarenas = 0, NA = 0;
@@ -367,6 +369,7 @@ public class Sistema_Sismos {
         return grafica;
     }
     
+    //Metodo para pobtenr canbtidad de sismos por origen
     public JFreeChart cantidad_sismos_origen(){
         DefaultPieDataset datos = new DefaultPieDataset();
         int subduccion = 0, choque_placas = 0, tectonico_falla_local = 0, intra_placa = 0, deformacion_interna = 0;
@@ -404,9 +407,123 @@ public class Sistema_Sismos {
     }
     
     //Cantidad de sismos por rango de fechas
+     public DefaultTableModel cantidad_sismos_rango(){
+        Object [] encabezado = {"Rango Fechas", "Cantidad"};
+        DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, 6);
+        int enero_febrero=0, marzo_abril=0, mayo_junio=0, julio_agosto=0, octubre_septiembre=0, noviembre_diciembre=0;
+        for(Sismo actual: sismosRegistrados){
+            if (actual.getFechaHora().getMonth() == 1 || actual.getFechaHora().getMonth() == 2){
+                enero_febrero +=1;
+            }
+            else if(actual.getFechaHora().getMonth() == 3 || actual.getFechaHora().getMonth() == 4){
+                marzo_abril += 1;
+            }
+            else if(actual.getFechaHora().getMonth() == 5 || actual.getFechaHora().getMonth() == 6){
+                mayo_junio += 1;
+            }
+            else if(actual.getFechaHora().getMonth() == 7 || actual.getFechaHora().getMonth() == 8){
+                julio_agosto += 1;
+            }
+            else if(actual.getFechaHora().getMonth() == 9 || actual.getFechaHora().getMonth() == 10){
+                octubre_septiembre += 1;
+            }
+            else if(actual.getFechaHora().getMonth() == 11 || actual.getFechaHora().getMonth() == 12){
+                noviembre_diciembre += 1;
+            }
+        }
+
+        tabla_datos.setValueAt("01/01 - 28/02", 0, 0);
+        tabla_datos.setValueAt(enero_febrero, 0, 1);
+        
+        tabla_datos.setValueAt("01/03 - 30/04", 1, 0);
+        tabla_datos.setValueAt(marzo_abril, 1, 1);
+        
+        tabla_datos.setValueAt("01/05 - 30/06", 2, 0);
+        tabla_datos.setValueAt(mayo_junio, 2, 1);
+        
+        tabla_datos.setValueAt("01/07 - 31/08", 3, 0);
+        tabla_datos.setValueAt(julio_agosto, 3, 1);
+        
+        tabla_datos.setValueAt("01/09 - 31/10", 4, 0);
+        tabla_datos.setValueAt(octubre_septiembre, 4, 1);
+        
+        tabla_datos.setValueAt("01/11 - 31/12", 5, 0);
+        tabla_datos.setValueAt(noviembre_diciembre, 5, 1);
+        
+        
+       
+     
+        return tabla_datos;
+    
+    }
     
     //Cantidad de sismos por mes en un año
+    public JFreeChart cantidadSismosMes(){
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        int enero=0, febrero=0, marzo=0, abril=0, mayo=0, junio=0, julio=0, agosto=0, septiembre=0, octubre=0, noviembre=0, diciembre=0;
+        for(Sismo actual: sismosRegistrados){
+            switch(actual.getFechaHora().getMonth()){
+                case 1:
+                    enero += 1; 
+                    break;
+                case 2:
+                    febrero += 1;
+                    break;
+                case 3:
+                    marzo += 1;
+                    break;
+                case 4:
+                    abril += 1;
+                    break;
+                case 5:
+                    mayo += 1;
+                    break;
+                case 6:
+                    junio += 1;
+                    break;
+                case 7:
+                    julio += 1;
+                    break;
+                case 8:
+                    agosto += 1;
+                    break;
+                case 9:
+                    septiembre += 1;
+                    break;
+                case 10:
+                    octubre += 1;
+                    break;
+                case 11:
+                    noviembre += 1;
+                    break;
+                case 12:
+                    diciembre += 1;
+                    break;
+            }
+        }
+        
+ 
+
+        
+        datos.addValue(enero, "Enero", "Cantidad");
+        datos.addValue(febrero, "Febrero", "Cantidad");
+        datos.addValue(marzo, "Marzo", "Cantidad");
+        datos.addValue(abril, "Abril", "Cantidad");
+        datos.addValue(mayo, "Mayo", "Cantidad");
+        datos.addValue(junio, "Junio", "Cantidad");
+        datos.addValue(julio, "Julio", "Cantidad");
+        datos.addValue(agosto, "Agosto", "Cantidad");
+        datos.addValue(septiembre, "Septiembre", "Cantidad");
+        datos.addValue(octubre, "Octubre", "Cantidad");
+        datos.addValue(noviembre, "Noviembre", "Cantidad");
+        datos.addValue(diciembre, "Diciembre", "Cantidad");
+        JFreeChart grafica = ChartFactory.createBarChart("Cantidad de sismos por mes", "Mes", "Cantidad", datos, PlotOrientation.VERTICAL, true, true, true);
+        
+        return grafica; 
     
+    }
+    
+    //Cantidad de sismos por magnitud
     public DefaultTableModel cantidad_sismos_magnitud(){
         Object [] encabezado = {"Magnitud", "Cantidad"};
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, 8);
@@ -441,26 +558,26 @@ public class Sistema_Sismos {
         tabla_datos.setValueAt("0.1 - 1.9", 0, 0);
         tabla_datos.setValueAt(menor_2, 0, 1);
         
-        tabla_datos.setValueAt("2.0 - 3.9", 0, 0);
-        tabla_datos.setValueAt(_3, 0, 1);
+        tabla_datos.setValueAt("2.0 - 3.9", 1, 0);
+        tabla_datos.setValueAt(_3, 1, 1);
         
-        tabla_datos.setValueAt("4.0 - 4.9", 1, 0);
-        tabla_datos.setValueAt(_4, 1, 1);
+        tabla_datos.setValueAt("4.0 - 4.9", 2, 0);
+        tabla_datos.setValueAt(_4, 2, 1);
         
-        tabla_datos.setValueAt("5.0 - 5.9", 2, 0);
-        tabla_datos.setValueAt(_5, 2, 1);
+        tabla_datos.setValueAt("5.0 - 5.9", 3, 0);
+        tabla_datos.setValueAt(_5, 3, 1);
         
-        tabla_datos.setValueAt("6.0 - 6.9", 3, 0);
-        tabla_datos.setValueAt(_6, 3, 1);
+        tabla_datos.setValueAt("6.0 - 6.9", 4, 0);
+        tabla_datos.setValueAt(_6, 4, 1);
         
-        tabla_datos.setValueAt("7.0 - 7.9", 4, 0);
-        tabla_datos.setValueAt(_7, 4, 1);
+        tabla_datos.setValueAt("7.0 - 7.9", 5, 0);
+        tabla_datos.setValueAt(_7, 5, 1);
         
-        tabla_datos.setValueAt("8.0 - 9.9", 5, 0);
-        tabla_datos.setValueAt(_9, 5, 1);
+        tabla_datos.setValueAt("8.0 - 9.9", 6, 0);
+        tabla_datos.setValueAt(_9, 6, 1);
         
-        tabla_datos.setValueAt("10.0+", 6, 0);
-        tabla_datos.setValueAt(_10, 6, 1);
+        tabla_datos.setValueAt("10.0+", 7, 0);
+        tabla_datos.setValueAt(_10, 7, 1);
         
        
      

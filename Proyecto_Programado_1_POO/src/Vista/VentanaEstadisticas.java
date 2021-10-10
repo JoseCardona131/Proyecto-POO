@@ -53,9 +53,19 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
 
         jButton2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jButton2.setText("Sismos ocurridos en un rango de fechas");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jButton3.setText(" Cantidad de sismos por mes en un año");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jButton4.setText("Clasificación de sismos por magnitud ");
@@ -133,6 +143,20 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
         ventana_graficos_tabulares nueva = new ventana_graficos_tabulares(parentFrame, true, "magnitud");
         nueva.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        JFrame parentFrame =  (JFrame) this.getParent();
+        Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "mes");
+        nueva.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JFrame parentFrame =  (JFrame) this.getParent();
+        ventana_graficos_tabulares nueva = new ventana_graficos_tabulares(parentFrame, true, "rango");
+        nueva.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

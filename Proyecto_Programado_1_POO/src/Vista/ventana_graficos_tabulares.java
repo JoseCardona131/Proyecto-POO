@@ -19,11 +19,16 @@ public class ventana_graficos_tabulares extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
-        switch(tipo){
-            case "magnitud":
-                TablaGrafica.setModel(sistema.cantidad_sismos_magnitud());
+        if(tipo == "magnitud"){
         
+            TablaGrafica.setModel(sistema.cantidad_sismos_magnitud());
         }
+        else{
+            TablaGrafica.setModel(sistema.cantidad_sismos_rango());
+        }
+        
+        
+        System.out.println(TablaGrafica.getModel().getRowCount());
     }
 
 
