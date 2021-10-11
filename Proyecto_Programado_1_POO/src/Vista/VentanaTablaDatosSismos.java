@@ -117,7 +117,9 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     }//GEN-LAST:event_RegistrarSismoActionPerformed
 
     private void ModificarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarSismoActionPerformed
-        // TODO add your handling code here:
+        JFrame parentFrame =  (JFrame) this.getParent();
+        VentanaModificarSismo nueva = new VentanaModificarSismo(parentFrame, true);
+        nueva.setVisible(true);
     }//GEN-LAST:event_ModificarSismoActionPerformed
 
 
