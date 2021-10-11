@@ -392,7 +392,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         
         int numero_Filas = hoja.getLastRowNum();
         
-        for(int i = 1;i < numero_Filas; i++){
+        for(int i = 1;i <= numero_Filas; i++){
             Row fila = hoja.getRow(i);
             int numero_Columnas = fila.getLastCellNum();
             
@@ -516,9 +516,10 @@ public class Ventana_Principal extends javax.swing.JFrame {
          */
         try{
         leerArchivoRegistroSismos(); 
-        leerArchivoInteresados();
         }
         catch(NullPointerException ex){}
+        
+        leerArchivoInteresados();
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

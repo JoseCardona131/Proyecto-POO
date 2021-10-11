@@ -8,6 +8,9 @@ package Vista;
 import Clases.Provincia;
 import Clases.Sistema_Sismos;
 import Clases.interesadoNotificacion;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -384,7 +387,12 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                                     if (contador_provincias_marcadas != 0){
 
                                         sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
-                                        System.out.println("El sismo se agrego con éxito");
+                                        System.out.println("El interesado se agrego con éxito");
+                                        try {
+                                            sistema_sismo.GuardarExcelInteresados(interesadoAgregar);
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(VentanaAgregarInteresado.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                     }
                                     else{
                                         MenError.setText("Seleccione al menos una provincia");
@@ -464,6 +472,11 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
 
                                 sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
                                 System.out.println("El interesado se agrego con éxito");
+                                try {
+                                    sistema_sismo.GuardarExcelInteresados(interesadoAgregar);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(VentanaAgregarInteresado.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             else{
                                 MenError.setText("Seleccione al menos una provincia");
