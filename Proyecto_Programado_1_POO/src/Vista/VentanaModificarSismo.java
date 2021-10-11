@@ -5,15 +5,19 @@
  */
 package Vista;
 
+import Clases.Sismo;
+import Clases.Sistema_Sismos;
+
 /**
  *
  * @author jcard
  */
 public class VentanaModificarSismo extends javax.swing.JDialog {
+    
+    // Variante de la clase sistema sismo servirá para modificar sus atributos estáticos
+    Sistema_Sismos sistema_sismo = new Sistema_Sismos();
+        
 
-    /**
-     * Creates new form VentanaModificarSismo
-     */
     public VentanaModificarSismo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -94,6 +98,11 @@ public class VentanaModificarSismo extends javax.swing.JDialog {
 
         ObtenerDatos.setLabel("Obtener Datos");
         ObtenerDatos.setName(""); // NOI18N
+        ObtenerDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ObtenerDatosActionPerformed(evt);
+            }
+        });
 
         Provincias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         Provincias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartago", "San Jose", "Alajuela", "Heredia", "Puntarenas", "Guanacaste", "Limon", "NA" }));
@@ -331,6 +340,25 @@ public class VentanaModificarSismo extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameActionPerformed
 
+    private void ObtenerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObtenerDatosActionPerformed
+        /*Sismo copia_prueba = new Sismo();
+        
+        // Primero se obtiene y se revisa el nombre
+        String nombre = name.getText();
+      
+        // Este if será si no esta vacio el nombre
+        if(!"".equals(nombre)){
+            
+            // Se revisa si ya ese nombre esta registrado
+            if (sistema_sismo.consultar_sismo_nombre(nombre)){
+                
+            }
+        }
+        else{
+            
+        }*/
+    }//GEN-LAST:event_ObtenerDatosActionPerformed
+    
     /**
      * @param args the command line arguments
      */
