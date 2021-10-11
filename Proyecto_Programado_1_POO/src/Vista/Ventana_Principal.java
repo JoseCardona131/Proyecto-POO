@@ -496,8 +496,11 @@ public class Ventana_Principal extends javax.swing.JFrame {
         leerArchivoRegistroSismos(); 
         }
         catch(NullPointerException ex){}
+        try{
+            leerArchivoInteresados();
+        }
+        catch(NullPointerException ex){}
         
-        leerArchivoInteresados();
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
