@@ -5,8 +5,24 @@
  */
 package Clases;
 
+import static Clases.Provincia.ALAJUELA;
+import static Clases.Provincia.CARTAGO;
+import static Clases.Provincia.GUANACASTE;
+import static Clases.Provincia.HEREDIA;
+import static Clases.Provincia.LIMON;
+import static Clases.Provincia.NA;
+import static Clases.Provincia.PUNTARENAS;
+import static Clases.Provincia.SANJOSE;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
@@ -150,6 +166,144 @@ public class Sistema_Sismos {
 
     }
     
+    // Guardar en excel
+    public void GuardarExcel(Sismo sismo) throws FileNotFoundException, IOException{
+        
+       FileInputStream myxlsx = new FileInputStream("InformacionSismos.xlsx");
+       XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
+       XSSFSheet worksheet = Sheet.getSheetAt(0);
+       int lastRow=worksheet.getLastRowNum();
+       System.out.println(lastRow);
+       Row row = worksheet.createRow(+lastRow);
+       
+       
+       for(Sismo actual: sismosRegistrados){
+           if(actual.getNombre().equals(sismo.getNombre())){
+               row.createCell(0).setCellValue(sismo.getNombre());
+           }
+           
+           if(actual.getFechaHora().equals(sismo.getFechaHora())){
+               String fecha = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+               row.createCell(1).setCellValue(fecha);
+           
+           }
+           
+           switch(sismo.getDescripcion()){
+               //Micro, Menor, Ligero, Moderado,Fuerte,Mayor,Gran,Epico
+               case Micro:
+                   row.createCell(2).setCellValue("Micro");
+                   break;
+               case Menor:
+                   row.createCell(2).setCellValue("Menor");
+                   break;
+               case Ligero:
+                   row.createCell(2).setCellValue("Ligero");
+                   break;
+               case Moderado:
+                   row.createCell(2).setCellValue("Moderado");
+                   break;
+               case Fuerte:
+                   row.createCell(2).setCellValue("Fuerte");
+                   break;
+               case Mayor:
+                   row.createCell(2).setCellValue("Mayor");
+                   break;
+               case Gran:
+                   row.createCell(2).setCellValue("Gran");
+                   break;
+               case Epico:
+                   row.createCell(2).setCellValue("Épico");
+                   break;
+           }
+           
+           if(actual.getMagnitud() == sismo.getMagnitud()){
+               row.createCell(3).setCellValue(sismo.getMagnitud());
+           }
+           
+           if(actual.getProfundidad() == sismo.getProfundidad()){
+               row.createCell(4).setCellValue(sismo.getProfundidad());
+           }
+           
+           switch(sismo.getOrigen()){
+                case SUBDUCCION:
+                    row.createCell(5).setCellValue("Subducción");
+                    break;
+                case CHOQUE_PLACAS:
+                    row.createCell(5).setCellValue("Choque de Placas");
+                    break;
+                case TECTONICO_FALLA_LOCAL:
+                    row.createCell(5).setCellValue("Tectónico por falla local");
+                    break;
+                case INTRA_PLACA:
+                    row.createCell(5).setCellValue("Intra placa");
+                    break;
+                case DEFORMACION_INTERNA:
+                    row.createCell(5).setCellValue("Deformación Interna");
+                    break;
+            }
+           
+          
+          if(actual.getLatitud() == sismo.getLatitud()){
+              row.createCell(6).setCellValue(sismo.getLatitud());
+          }
+          
+          if(actual.getLongitud() == sismo.getLongitud()){
+              row.createCell(7).setCellValue(sismo.getLongitud());
+          }
+          
+          /*if(actual.getlocalizacion().equals(sismo.getlocalizacion())){
+              row.createCell(8).setCellValue(sismo.getNombre());
+          }*/
+          
+          switch(sismo.getProvincia()){/////////////////////////////////////////////////////////sismo o actual///////////////////////////
+               case CARTAGO:
+                    row.createCell(9).setCellValue("Cartago"); 
+                    break;
+                case SANJOSE:
+                    row.createCell(9).setCellValue("San Jose");
+                    break;
+                case HEREDIA:
+                    row.createCell(9).setCellValue("Heredia");
+                    break;
+                case ALAJUELA:
+                    row.createCell(9).setCellValue("Alajuela");
+                    break;
+                case GUANACASTE:
+                    row.createCell(9).setCellValue("Guanacaste");
+                    break;
+                case PUNTARENAS:
+                    row.createCell(9).setCellValue("Puntarenas");
+                    break;
+                case LIMON:
+                    row.createCell(9).setCellValue("Limon");
+                    break;
+                case NA:
+                    row.createCell(9).setCellValue("NA");
+                    break;
+            }
+          
+          if(sismo.getmaritimo() == true){/////////////////////////////////////////////////////////sismo o actual///////////////////////////
+              row.createCell(10).setCellValue("Si");
+          }
+          
+          if(sismo.getmaritimo() == false){
+              row.createCell(10).setCellValue("No");
+          }
+              
+          
+          
+          
+       }
+       
+       
+       myxlsx.close();
+       FileOutputStream output_file =new FileOutputStream(new File("InformacionSismos.xlsx"));  
+       //write changes
+       Sheet.write(output_file);
+       output_file.close();
+       System.out.println(" is successfully written");
+    }
+    
     /* ACME INTERESADOS NOTIFICACIONES */
     
     // Agregar Interesados
@@ -246,6 +400,82 @@ public class Sistema_Sismos {
     //Retornar listas de interesados
     public ArrayList<interesadoNotificacion> retorna_lista(){
        return Sistema_Sismos.interesadosNotificaciones;
+    }
+    
+    // Guardar excel interesados
+    public void GuardarExcelInteresados(interesadoNotificacion interesado) throws FileNotFoundException, IOException{
+       FileInputStream myxlsx = new FileInputStream("InteresadosNotificaciones.xlsx");
+       XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
+       XSSFSheet worksheet = Sheet.getSheetAt(0);
+       int lastRow=worksheet.getLastRowNum();
+       System.out.println(lastRow);
+       Row row = worksheet.createRow(++lastRow);
+       
+       //String hola = "hola";
+       /*row.createCell(1).setCellValue("Dr.Hola");
+       row.createCell(2).setCellValue("Dr.Hola2222");*/
+       
+       for(interesadoNotificacion actual: interesadosNotificaciones){
+           if(actual.getNombre().equals(interesado.getNombre())){
+               row.createCell(0).setCellValue(interesado.getNombre());
+           }
+           
+           if(actual.getCorreo().equals(interesado.getCorreo())){
+               row.createCell(1).setCellValue(interesado.getCorreo());
+           }
+           
+           if(actual.getNumeroTelefono().equals(interesado.getNumeroTelefono())){
+               row.createCell(2).setCellValue(interesado.getNumeroTelefono());
+           }
+
+           ArrayList<Provincia> provinciasI = interesado.getProvinciasInteres();
+           
+           String provincias = "";
+           for(Provincia actual2 : provinciasI){
+               if(actual2 == CARTAGO){
+                   provincias = provincias + "Cartago,";
+               }
+               
+               if(actual2 == SANJOSE){
+                   provincias = provincias + "San Jose,";
+               }
+               
+               if(actual2 == HEREDIA){
+                   provincias = provincias + "Heredia,";
+               }
+               
+               if(actual2 == ALAJUELA){
+                   provincias = provincias + "Alajuela,";
+               }
+               
+               if(actual2 == GUANACASTE){
+                   provincias = provincias + "Guanacaste,";
+               }
+               
+               if(actual2 == PUNTARENAS){
+                   provincias = provincias + "Puntarenas,";
+               }
+               
+               if(actual2 == LIMON){
+                   provincias = provincias + "Limon,";
+               }
+               
+               if(actual2 == NA){
+                   provincias = provincias + "NA,";
+               }
+              
+           }
+           row.createCell(3).setCellValue(provincias);
+
+       }
+       
+       
+       myxlsx.close();
+       FileOutputStream output_file =new FileOutputStream(new File("InteresadosNotificaciones.xlsx"));  
+       //write changes
+       Sheet.write(output_file);
+       output_file.close();
+       System.out.println(" is successfully written");
     }
     
     //Metodo para generar la tabla de datos

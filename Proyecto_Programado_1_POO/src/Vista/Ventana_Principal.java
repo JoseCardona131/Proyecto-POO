@@ -158,7 +158,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(jButton1)
@@ -169,12 +169,12 @@ public class Ventana_Principal extends javax.swing.JFrame {
                 .addGap(94, 94, 94)
                 .addComponent(ApuntarseNotif)
                 .addGap(18, 18, 18)
-                .addComponent(jButton8)
+                .addComponent(jButton6)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addGap(21, 21, 21))
+                    .addComponent(jButton8))
+                .addGap(34, 34, 34))
         );
 
         pack();
@@ -492,6 +492,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        new ventana_interesados(this,true).setVisible(true);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
