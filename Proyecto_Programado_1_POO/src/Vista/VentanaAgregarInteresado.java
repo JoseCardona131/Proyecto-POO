@@ -16,7 +16,8 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    
+    // Se crea un nombre para modificar el sistema de sismos desde esta ventana
     Sistema_Sismos sistema_sismo = new Sistema_Sismos();
     
     @SuppressWarnings("unchecked")
@@ -237,7 +238,8 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // Función para agregar a un interesado con los datos ingresados
     private void botonApuntarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApuntarseActionPerformed
         
         interesadoNotificacion interesadoAgregar = new interesadoNotificacion();
@@ -278,12 +280,15 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                         // Se revisará el número
                         String number = numero.getText();
                         
+                        // Si el número esta vacío
                         if (number.equals("")){
                             interesadoAgregar.setNumeroTelefono("NA");
                             
                             // Se pasan a revisar las provincias
                             int contador_provincias_marcadas = 0;
-
+                                
+                                // Se revisa cuales provincias están seleccionadas
+                                // Si están seleccionadas se agrega la provincia a la lista de provincias de interés
                                 if (Alajuela.isSelected()){
                                     interesadoAgregar.AgregarProvinciaInteres(Provincia.ALAJUELA);
                                     contador_provincias_marcadas++;
@@ -319,10 +324,12 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
 
                                 // Se revisa si se agrego al menos una provincia
                                 if (contador_provincias_marcadas != 0){
-
+                                    
+                                    // Se agrega el interesado a la lista
                                     sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
                                     System.out.println("El sismo se agrego con éxito");
                                 }
+                                // Si no se agrego ninguna provincia
                                 else{
                                     MenError.setText("Seleccione al menos una provincia");
                                 }  
@@ -344,6 +351,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                                     interesadoAgregar.setNumeroTelefono(number);
                                 
                                     // Se revisarán las provincias seleccionadas
+                                    // Si esta seleccionada se agrega a la lista de provincias del interesado
                                     int contador_provincias_marcadas = 0;
 
                                     if (Alajuela.isSelected()){
@@ -411,9 +419,11 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                 // Se revisará el número
                 String number = numero.getText();
                 
+                // Si esta vacío
                 if (number.equals("")){
                     MenError.setText("Debe insertar al menos un correo o número telefónico");
                 }
+                // Si no esta vacío se revisa el patrón
                 else{
                     Pattern patnum = Pattern.compile("^[0-9]{4}-[0-9]{4}");
                     Matcher matnum = patnum.matcher(number);
@@ -429,6 +439,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                             interesadoAgregar.setCorreo("NA");
 
                             // Se revisarán las provincias seleccionadas
+                            // Si están seleccionadas se agregan a la lista de provincias
                             int contador_provincias_marcadas = 0;
 
                             if (Alajuela.isSelected()){
@@ -491,16 +502,21 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
             MenError.setText("El nombre no puede ser vacío");
         }
     }//GEN-LAST:event_botonApuntarseActionPerformed
-
+    
+    // Botón de Salir
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
-
+    
+    // Botón para vaciar la ventana
     private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-         nombre.setText("");
+         // Todos los textos se ponen como vacío
+        nombre.setText("");
          correo.setText("");
          numero.setText("");
+         
+         // Se deseleccionan todos los checkboxes
          Cartago.setSelected(false);
          SanJ.setSelected(false);
          Alajuela.setSelected(false);

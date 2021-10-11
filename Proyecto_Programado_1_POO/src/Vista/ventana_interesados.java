@@ -10,19 +10,30 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class ventana_interesados extends javax.swing.JDialog {
-
+    
+    // Método Para cargar los datos dentro de la lista de interesados en una tabla
     public DefaultTableModel cargarTabla(){
         ArrayList<interesadoNotificacion> interesados = new ArrayList<interesadoNotificacion>();
         Sistema_Sismos sistema = new Sistema_Sismos();
         interesados = sistema.retorna_lista();
         Object [] encabezado = {"Nombre", "Correo", "Celular", "Provincia de ínteres"};
+        
+        // Se crea una nueva tabla de datos con la misma cantidad de filas que la lista de intereados en notificaciones
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, interesados.size());
+        
+        // Se va a hacer un ciclo que se repita hasta que alcanze el límite de filas en la tabla
         for(int i = 0; i < tabla_datos.getRowCount(); i++){
+            
+            // Por cada fila se van a asignar los datos de los interesados en la lista
+            // Para esto se obtiene el interesado en el índice actual de la lista
             interesadoNotificacion actual = interesados.get(i);
-            //Asiganr datos a la tabla
+            
+            // Se van a Asignar datos a la tabla en los índices de acuerdo al Excel
             tabla_datos.setValueAt(actual.getNombre(), i, 0);
             tabla_datos.setValueAt(actual.getCorreo(), i, 1);
             tabla_datos.setValueAt(actual.getNumeroTelefono(), i, 2);
+            
+            // Se crea una nueva lista de Provincias donde se guardarán todas las provincias que le interesan a la persona
             ArrayList<Provincia> prov = new ArrayList<Provincia>();
             prov = actual.getProvinciasInteres();
             String provincias = "";
@@ -46,14 +57,13 @@ public class ventana_interesados extends javax.swing.JDialog {
                         provincias += "NA, ";
                 }
             }
-            
+            // Se agrega el string con las provincias a la celda
             tabla_datos.setValueAt(provincias, i, 3);
-            
-            
-        
         }
+        // Se retorna la tabla con los datos
         return tabla_datos;
     }
+    // Botón para abrir la tabla de interesados
     public ventana_interesados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -68,8 +78,8 @@ public class ventana_interesados extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDatos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        InteresadosNotificacion = new javax.swing.JLabel();
+        Salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -87,14 +97,14 @@ public class ventana_interesados extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(TablaDatos);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel1.setText("Lista de Interesados a Notificación");
+        InteresadosNotificacion.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        InteresadosNotificacion.setText("Lista de Interesados a Notificación");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Salir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SalirActionPerformed(evt);
             }
         });
 
@@ -106,9 +116,9 @@ public class ventana_interesados extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(InteresadosNotificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(Salir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -119,9 +129,9 @@ public class ventana_interesados extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(InteresadosNotificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(Salir)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -131,11 +141,11 @@ public class ventana_interesados extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_SalirActionPerformed
 
 
     public static void main(String args[]) {
@@ -171,9 +181,9 @@ public class ventana_interesados extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel InteresadosNotificacion;
+    private javax.swing.JButton Salir;
     private javax.swing.JTable TablaDatos;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

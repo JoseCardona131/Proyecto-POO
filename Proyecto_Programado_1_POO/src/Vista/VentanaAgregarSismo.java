@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 public class VentanaAgregarSismo extends javax.swing.JDialog {
     
+    // Variante de la clase sistema sismo servirá para modificar sus atributos estáticos
     Sistema_Sismos sistema_sismo = new Sistema_Sismos();
 
     // Método Constructor
@@ -46,21 +47,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         return true;         
     }
     
-    // Función para verificar si un tiempo es válido
-    // Función para verificar si una fecha es válida, sirve para saber que un string pueda convertirse a Date correctamente
-    public boolean validarStringTiempo(String TiempoRevisar){
-        SimpleDateFormat formato_tiempo = new SimpleDateFormat("h:mm");
-        formato_tiempo.setLenient(false);   
-        try
-        {
-           formato_tiempo.parse(TiempoRevisar.trim());
-        }
-        catch(ParseException pe){
-            return false;
-        }
-        return true;         
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,7 +76,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         TipodeMagnitud = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         Longitud = new java.awt.TextField();
-        DisplayMapa = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         descripcionSismo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -213,15 +198,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Longitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LongitudActionPerformed(evt);
-            }
-        });
-
-        DisplayMapa.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        DisplayMapa.setForeground(new java.awt.Color(0, 0, 0));
-        DisplayMapa.setText("Ver Dirección en Mapa");
-        DisplayMapa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DisplayMapaActionPerformed(evt);
             }
         });
 
@@ -418,15 +394,10 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                                 .addGap(27, 27, 27)
                                 .addComponent(Longitud, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Intra)
-                                .addGap(18, 18, 18)
-                                .addComponent(deformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(DisplayMapa)
-                                .addGap(66, 66, 66))))))
+                        .addComponent(Intra)
+                        .addGap(18, 18, 18)
+                        .addComponent(deformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,9 +459,7 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(DisplayMapa)
-                                .addGap(24, 24, 24)
+                                .addGap(73, 73, 73)
                                 .addComponent(jLabel14)
                                 .addGap(26, 26, 26))
                             .addGroup(layout.createSequentialGroup()
@@ -580,12 +549,13 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     // Función para borrar todos los datos insertados en la ventana (Vaciar Datos)
     private void VaciarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VaciarDatosActionPerformed
         
-        // Se convierten todos los textos en las cajas de texto
+        // Se convierten todos los textos en las cajas a vacío
         NombreSismo.setText("");
         Profundidad.setText("");
         fecha.setText("");
         hora.setText("");
         Longitud.setText("");
+        // Se deselecciónan botones y se definen valores default
         jRadioButton1.setSelected(false);
         jRadioButton2.setSelected(true);
         Provincias.setSelectedItem("Cartago");
@@ -849,10 +819,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
         Provincias.setSelectedItem("Cartago");
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
-    private void DisplayMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayMapaActionPerformed
-
-    }//GEN-LAST:event_DisplayMapaActionPerformed
-
     private void NombreSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreSismoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreSismoActionPerformed
@@ -916,7 +882,6 @@ public class VentanaAgregarSismo extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Choque;
-    private javax.swing.JButton DisplayMapa;
     private javax.swing.JButton GuardarSismo;
     private javax.swing.JRadioButton Intra;
     private java.awt.TextField Latitud;

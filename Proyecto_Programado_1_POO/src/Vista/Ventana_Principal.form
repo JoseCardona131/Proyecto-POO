@@ -59,31 +59,29 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButton6" max="32767" attributes="0"/>
+                  <Component id="ListaInteresados" max="32767" attributes="0"/>
                   <Component id="ApuntarseNotif" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="32767" attributes="0"/>
-              <Component id="jButton5" min="-2" pref="154" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="29" pref="640" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace pref="198" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="VerSismosRegistrados" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="354" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="596" max="-2" attributes="0"/>
+                      <Component id="Titulo" min="-2" pref="596" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton4" min="-2" pref="146" max="-2" attributes="0"/>
+                              <Component id="Salir" min="-2" pref="146" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jButton3" alignment="1" min="-2" pref="164" max="-2" attributes="0"/>
+                          <Component id="Estadisticas" alignment="1" min="-2" pref="164" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="396" max="-2" attributes="0"/>
                   </Group>
@@ -95,26 +93,24 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace pref="50" max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="44" max="-2" attributes="0"/>
+              <Component id="Titulo" min="-2" pref="44" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="VerSismosRegistrados" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="Estadisticas" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+              <Component id="Salir" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               <Component id="ApuntarseNotif" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <Component id="ListaInteresados" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="Titulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Eras Demi ITC" size="36" style="0"/>
@@ -122,7 +118,7 @@
         <Property name="text" type="java.lang.String" value="Sistema de Informaci&#xf3;n de Sismos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="VerSismosRegistrados">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="24" style="0"/>
@@ -130,10 +126,10 @@
         <Property name="text" type="java.lang.String" value="Sismos Registrados"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VerSismosRegistradosActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="Estadisticas">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="24" style="0"/>
@@ -141,10 +137,10 @@
         <Property name="text" type="java.lang.String" value="Estad&#xed;sticas"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EstadisticasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="Salir">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="24" style="0"/>
@@ -152,21 +148,10 @@
         <Property name="text" type="java.lang.String" value="Salir"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SalirActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Ayuda"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="ListaInteresados">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
@@ -174,7 +159,7 @@
         <Property name="text" type="java.lang.String" value="Lista Apuntados al sistema notificaciones"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ListaInteresadosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ApuntarseNotif">

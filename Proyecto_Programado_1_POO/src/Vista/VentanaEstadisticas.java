@@ -17,54 +17,54 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        GraficoTipoOrigen = new javax.swing.JButton();
+        GraficoSismosRangoFechas = new javax.swing.JButton();
+        GraficoSismosPorMes = new javax.swing.JButton();
+        GraficoSismosMagnitud = new javax.swing.JButton();
+        GraficoCantidadSismos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Estadísticas de Sismos");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jButton1.setText("Cantidad de sismos por tipo de origen ");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        GraficoTipoOrigen.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        GraficoTipoOrigen.setText("Cantidad de sismos por tipo de origen ");
+        GraficoTipoOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GraficoTipoOrigenActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jButton2.setText("Sismos ocurridos en un rango de fechas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        GraficoSismosRangoFechas.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        GraficoSismosRangoFechas.setText("Sismos ocurridos en un rango de fechas");
+        GraficoSismosRangoFechas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                GraficoSismosRangoFechasActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jButton3.setText(" Cantidad de sismos por mes en un año");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        GraficoSismosPorMes.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        GraficoSismosPorMes.setText(" Cantidad de sismos por mes en un año");
+        GraficoSismosPorMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                GraficoSismosPorMesActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jButton4.setText("Clasificación de sismos por magnitud ");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        GraficoSismosMagnitud.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        GraficoSismosMagnitud.setText("Clasificación de sismos por magnitud ");
+        GraficoSismosMagnitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                GraficoSismosMagnitudActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jButton5.setText("Cantidad de sismos por provincia");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        GraficoCantidadSismos.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        GraficoCantidadSismos.setText("Cantidad de sismos por provincia");
+        GraficoCantidadSismos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                GraficoCantidadSismosActionPerformed(evt);
             }
         });
 
@@ -76,73 +76,81 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
                 .addContainerGap(230, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(252, 252, 252))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(167, 167, 167))))
+                            .addComponent(GraficoSismosRangoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GraficoTipoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GraficoSismosPorMes, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GraficoSismosMagnitud, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GraficoCantidadSismos, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(167, 167, 167))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(204, 204, 204))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(56, 56, 56)
                 .addComponent(jLabel1)
-                .addGap(62, 62, 62)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GraficoCantidadSismos, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(GraficoTipoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GraficoSismosRangoFechas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GraficoSismosPorMes, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(GraficoSismosMagnitud, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    
+    
+    // Botones para abrir los graficos
+    // Cada Botón abre un grafico diferente a través de una ventana nueva
+    
+    // Gráfico para cantidad de sismos por provincia
+    private void GraficoCantidadSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficoCantidadSismosActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
         Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "provincia");
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_GraficoCantidadSismosActionPerformed
+    
+    // Grafico para cantidad de sismos por tipo de origen
+    private void GraficoTipoOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficoTipoOrigenActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
         Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "origen");
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_GraficoTipoOrigenActionPerformed
+    
+    // Graficos para cantidad de sismos por magnitud
+    private void GraficoSismosMagnitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficoSismosMagnitudActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
         ventana_graficos_tabulares nueva = new ventana_graficos_tabulares(parentFrame, true, "magnitud");
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_GraficoSismosMagnitudActionPerformed
+    
+    // Graficos para cantidad de Sismos por mes
+    private void GraficoSismosPorMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficoSismosPorMesActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
         Ventana_graficos nueva = new Ventana_graficos(parentFrame, true, "mes");
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_GraficoSismosPorMesActionPerformed
+    
+    // Graficos para cantidad de sismos por cierto rango de fechas
+    private void GraficoSismosRangoFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraficoSismosRangoFechasActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame =  (JFrame) this.getParent();
         ventana_graficos_tabulares nueva = new ventana_graficos_tabulares(parentFrame, true, "rango");
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    }//GEN-LAST:event_GraficoSismosRangoFechasActionPerformed
 
     public static void main(String args[]) {
 
@@ -161,11 +169,11 @@ public class VentanaEstadisticas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton GraficoCantidadSismos;
+    private javax.swing.JButton GraficoSismosMagnitud;
+    private javax.swing.JButton GraficoSismosPorMes;
+    private javax.swing.JButton GraficoSismosRangoFechas;
+    private javax.swing.JButton GraficoTipoOrigen;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

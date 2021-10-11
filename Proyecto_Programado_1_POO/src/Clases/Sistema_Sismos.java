@@ -29,8 +29,13 @@ import org.jfree.data.statistics.HistogramDataset;
 
 public class Sistema_Sismos {
     
-    //Atributos
+    //Atributos del sistema de sismos
+    // Lista de sismos 
+    // Esta lista recibirá todos los sismos regiistrados en el excel y los guardará
     private static ArrayList<Sismo> sismosRegistrados = new ArrayList();
+    
+    // Lista de Interesados
+    // Esta lista recibe todos los interesados del archivo de Excel y los almacena 
     private static ArrayList<interesadoNotificacion> interesadosNotificaciones = new ArrayList();
 
     public Sistema_Sismos() {
@@ -39,6 +44,7 @@ public class Sistema_Sismos {
     /* ACME SISMOS */
     
     // Aregar Sismo
+    // Agrega un nuevo objeto sismo a la lista
     public boolean agregarSismo(Sismo sismo){
         for(Sismo actual: sismosRegistrados){
             if(actual.getNombre().equals(sismo.getNombre())){
@@ -152,21 +158,22 @@ public class Sistema_Sismos {
     }
     
     // Eliminar Sismo
+    // Remueve el sismo de la lista
     public boolean eliminarSismo(Sismo sismo){
         for(Sismo actual: sismosRegistrados){
             if(actual.getNombre().equals(sismo.getNombre())){
                 sismosRegistrados.remove(sismo);
                 return true;
-
             }
         }
         return false;
 
     }
     
-    // Guardar en excel
+    // Guardar en excel (Método para guardar un sismo dentro del excel)
     public void GuardarExcel(Sismo sismo) throws FileNotFoundException, IOException{
-        //Abrimos el archivo de excel en la ultima fila
+        
+        //Abre el archivo de excel en la última fila para agregar el nuevo elemento al final
        FileInputStream myxlsx = new FileInputStream("InformacionSismos.xlsx");
        XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
        XSSFSheet worksheet = Sheet.getSheetAt(0);
@@ -180,7 +187,9 @@ public class Sistema_Sismos {
                row.createCell(0).setCellValue(sismo.getNombre());
            }
            String fecha;
+           
            //En la fecha se revisa si el dia o el mes es menor a 10, para agregarle un "0" antes y no presentar errores
+           // Casos diferentes para revisar la fecha
            if(actual.getFechaHora().equals(sismo.getFechaHora())){
                if(sismo.getFechaHora().getDay() < 10){
                    if(sismo.getFechaHora().getMonth() < 10){
@@ -218,13 +227,15 @@ public class Sistema_Sismos {
                    }
                
                }
-               
+               // Se guarda la fecha
                row.createCell(1).setCellValue(fecha);
            
            }
-           
+           // Se revisa la descripción que tiene registrado el sismo
            switch(sismo.getDescripcion()){
+               
                //Micro, Menor, Ligero, Moderado,Fuerte,Mayor,Gran,Epico
+               // Dependiendo del tipo de descripción se guardará un string diferente en la celda
                case Micro:
                    row.createCell(2).setCellValue("Micro");
                    break;
@@ -250,7 +261,6 @@ public class Sistema_Sismos {
                    row.createCell(2).setCellValue("Épico");
                    break;
            }
-           
            if(actual.getMagnitud() == sismo.getMagnitud()){
                row.createCell(3).setCellValue(sismo.getMagnitud());
            }
@@ -259,7 +269,10 @@ public class Sistema_Sismos {
                row.createCell(4).setCellValue(sismo.getProfundidad());
            }
            
+           // Se obtiene el Valor del origen del sismo
            switch(sismo.getOrigen()){
+               
+               // Dependiendo del tipo de origen se guarda un string diferente en la celda
                 case SUBDUCCION:
                     row.createCell(5).setCellValue("Subducción");
                     break;
@@ -277,15 +290,15 @@ public class Sistema_Sismos {
                     break;
             }
            
-          
+          // Para guardar la latitud
           if(actual.getLatitud() == sismo.getLatitud()){
               row.createCell(6).setCellValue(sismo.getLatitud());
           }
-          
+          // Para guardar la longitud
           if(actual.getLongitud() == sismo.getLongitud()){
               row.createCell(7).setCellValue(sismo.getLongitud());
           }
-          
+          // Para guardar la descripción de la localizacion
           if(actual.getlocalizacion().equals(sismo.getlocalizacion())){
               row.createCell(8).setCellValue(sismo.getNombre());
           }
@@ -316,7 +329,8 @@ public class Sistema_Sismos {
                     row.createCell(9).setCellValue("NA");
                     break;
             }
-          
+          // Se revisa el valor de la variable maritimo para el sismo
+          // Dependiendo de este valor se guarda un string diferente
           if(sismo.getmaritimo() == true){
               row.createCell(10).setCellValue("Si");
           }
@@ -324,12 +338,8 @@ public class Sistema_Sismos {
           if(sismo.getmaritimo() == false){
               row.createCell(10).setCellValue("No");
           }
-              
-          
-          
-          
        }
-       
+       // Cuando ya se cargan todos los datos
        //Se cierra el archivo y se guarda la informacion
        myxlsx.close();
        FileOutputStream output_file =new FileOutputStream(new File("InformacionSismos.xlsx"));  
@@ -340,13 +350,11 @@ public class Sistema_Sismos {
     }
     
     /* ACME INTERESADOS NOTIFICACIONES */
-    
     // Agregar Interesados
     public boolean agregarInteresadosNotificaciones(interesadoNotificacion interesado){
         for(interesadoNotificacion actual: interesadosNotificaciones){
             if(actual.getNombre().equals(interesado.getNombre())){
                 return false;
-
             }
         }
         interesadosNotificaciones.add(interesado);
@@ -363,7 +371,6 @@ public class Sistema_Sismos {
         }
         return false;
     }
-    
     
     // Modificar Correo Interesado
     public boolean modificarInteresadoNotificacionesCorreo(String correo, String nuevoCorreo){
@@ -437,9 +444,10 @@ public class Sistema_Sismos {
        return Sistema_Sismos.interesadosNotificaciones;
     }
     
-    // Guardar excel interesados
+    // Método para guardar un interesado en el excel de interesados
     public void GuardarExcelInteresados(interesadoNotificacion interesado) throws FileNotFoundException, IOException{
-        //Se abre el archivo y se coloca en la ultima fila
+        
+        //Se abre el archivo y se coloca en la ultima fila para poder agregar el interesado al final
        FileInputStream myxlsx = new FileInputStream("InteresadosNotificaciones.xlsx");
        XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
        XSSFSheet worksheet = Sheet.getSheetAt(0);
@@ -447,24 +455,29 @@ public class Sistema_Sismos {
        System.out.println(lastRow);
        Row row = worksheet.createRow(++lastRow);
        
-       //Se recorre la lista de interesados yt se busca el interesado que se desea agregar al excel
+       //Se recorre la lista de interesados y se busca el interesado que se desea agregar al excel
        for(interesadoNotificacion actual: interesadosNotificaciones){
+           
            //Se obtiene cada dato individual y se agrega al excel
+           // Para agregar el nombre
            if(actual.getNombre().equals(interesado.getNombre())){
                row.createCell(0).setCellValue(interesado.getNombre());
            }
-           
+           // Para agregar el correo del interesado
            if(actual.getCorreo().equals(interesado.getCorreo())){
                row.createCell(1).setCellValue(interesado.getCorreo());
            }
-           
+           // Para agregar el número de teléfono
            if(actual.getNumeroTelefono().equals(interesado.getNumeroTelefono())){
                row.createCell(2).setCellValue(interesado.getNumeroTelefono());
            }
-
+           // Para las provincias de interés para el usuario
            ArrayList<Provincia> provinciasI = interesado.getProvinciasInteres();
            
+           // Se va a ir formando un string
            String provincias = "";
+           
+           // Por cada tipo de provincia en la lista del interesado se va a agregar el nombre de esa provincia al string
            for(Provincia actual2 : provinciasI){
                if(actual2 == CARTAGO){
                    provincias = provincias + "Cartago,";
@@ -499,11 +512,12 @@ public class Sistema_Sismos {
                }
               
            }
+           // Se guarda todo el string de provincias
            row.createCell(3).setCellValue(provincias);
 
        }
        
-       //Se cierra el excel y se guarda
+       //Se cierra el excel y se guarda totalmente
        myxlsx.close();
        FileOutputStream output_file =new FileOutputStream(new File("InteresadosNotificaciones.xlsx"));  
        Sheet.write(output_file);

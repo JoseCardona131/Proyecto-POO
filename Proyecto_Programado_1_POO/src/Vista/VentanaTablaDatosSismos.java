@@ -18,29 +18,30 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Salir = new javax.swing.JButton();
+        RegistrarSismo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaDatos = new javax.swing.JTable();
+        ModificarSismo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Registro de Sismos");
 
-        jButton1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Salir.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        Salir.setText("Salir");
+        Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SalirActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton2.setText("Registrar Sismo Nuevo");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        RegistrarSismo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        RegistrarSismo.setText("Registrar Sismo Nuevo");
+        RegistrarSismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                RegistrarSismoActionPerformed(evt);
             }
         });
 
@@ -55,6 +56,14 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
         ));
         jScrollPane2.setViewportView(TablaDatos);
 
+        ModificarSismo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        ModificarSismo.setText("Modificar Sismo");
+        ModificarSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarSismoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,12 +71,14 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(49, 49, 49)
+                        .addComponent(RegistrarSismo)
+                        .addGap(44, 44, 44)
+                        .addComponent(jLabel1)
+                        .addGap(51, 51, 51)
+                        .addComponent(Salir, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(ModificarSismo))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1023, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -79,33 +90,39 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                    .addComponent(Salir)
+                    .addComponent(RegistrarSismo)
+                    .addComponent(ModificarSismo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    // Botón para salir de la ventana
+    private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
         // Se quita la visibilidad de la ventana y se desecha (Cerrando el programa)
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_SalirActionPerformed
+    
+    // Botón para abrir la ventana para registrar sismo
+    // Abre una nueva ventana para registrar sismo
+    private void RegistrarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarSismoActionPerformed
         JFrame parentFrame =  (JFrame) this.getParent();
         VentanaAgregarSismo nueva = new VentanaAgregarSismo(parentFrame, true);
         nueva.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_RegistrarSismoActionPerformed
+
+    private void ModificarSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarSismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ModificarSismoActionPerformed
 
 
     public static void main(String args[]) {
 
-        
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 VentanaTablaDatosSismos dialog = new VentanaTablaDatosSismos(new javax.swing.JFrame(), true);
@@ -121,9 +138,10 @@ public class VentanaTablaDatosSismos extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ModificarSismo;
+    private javax.swing.JButton RegistrarSismo;
+    private javax.swing.JButton Salir;
     private javax.swing.JTable TablaDatos;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
