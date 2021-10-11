@@ -184,9 +184,9 @@ public class Ventana_Principal extends javax.swing.JFrame {
         FileInputStream archivo = new FileInputStream("InformacionSismos.xlsx");
         XSSFWorkbook libro = new XSSFWorkbook(archivo);
         XSSFSheet hoja = libro.getSheetAt(0);
-        
         int numero_Filas = hoja.getLastRowNum();
-        for(int i = 0;i < numero_Filas; i++){
+       
+        for(int i = 0;i <= numero_Filas; i++){
             Row fila = hoja.getRow(i);
             int numero_Columnas = fila.getLastCellNum();
             
@@ -201,6 +201,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                         //Agregar nombre al sismo
                         
                         nuevo.setNombre(celda.getStringCellValue());
+
                         break;
                      
                     case 1:
@@ -256,7 +257,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
                     case 3:
                         //Agregar magnitud del sismo
                         try{
-                            double magnitud = Float.valueOf(celda.getStringCellValue());
+                            double magnitud = celda.getNumericCellValue();
                             nuevo.setMagnitud(magnitud);
                             break;
                         }
@@ -507,15 +508,17 @@ public class Ventana_Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws FileNotFoundException, IOException, NullPointerException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
+        try{
         leerArchivoRegistroSismos(); 
         leerArchivoInteresados();
+        }
+        catch(NullPointerException ex){}
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

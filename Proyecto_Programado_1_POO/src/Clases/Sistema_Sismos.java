@@ -173,17 +173,51 @@ public class Sistema_Sismos {
        XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
        XSSFSheet worksheet = Sheet.getSheetAt(0);
        int lastRow=worksheet.getLastRowNum();
-       System.out.println(lastRow);
-       Row row = worksheet.createRow(+lastRow);
-       
+       Row row = worksheet.createRow(++lastRow);
        
        for(Sismo actual: sismosRegistrados){
            if(actual.getNombre().equals(sismo.getNombre())){
                row.createCell(0).setCellValue(sismo.getNombre());
            }
-           
+           String fecha;
            if(actual.getFechaHora().equals(sismo.getFechaHora())){
-               String fecha = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+               if(sismo.getFechaHora().getDay() < 10){
+                   if(sismo.getFechaHora().getMonth() < 10){
+                       if(sismo.getFechaHora().getMonth() == 0){
+                            fecha = "0" + sismo.getFechaHora().getDay() + "/" + "12" + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                       
+                       }
+                       
+                       else{
+                           fecha = "0" + sismo.getFechaHora().getDay() + "/" + "0" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                       }
+                       
+                   
+                   }
+                   else{
+                       fecha = "0" + sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                   }
+               
+               }
+               else{
+                    if(sismo.getFechaHora().getMonth() < 10){
+                        if(sismo.getFechaHora().getMonth() == 0){
+                            fecha = "0" + sismo.getFechaHora().getDay() + "/" + "12" + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                       
+                       }
+                       
+                       else{
+                           fecha = "0" + sismo.getFechaHora().getDay() + "/" + "0" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                       }
+                       
+                   
+                   }
+                   else{
+                       fecha = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+                   }
+               
+               }
+               
                row.createCell(1).setCellValue(fecha);
            
            }
@@ -251,9 +285,9 @@ public class Sistema_Sismos {
               row.createCell(7).setCellValue(sismo.getLongitud());
           }
           
-          /*if(actual.getlocalizacion().equals(sismo.getlocalizacion())){
+          if(actual.getlocalizacion().equals(sismo.getlocalizacion())){
               row.createCell(8).setCellValue(sismo.getNombre());
-          }*/
+          }
           
           switch(sismo.getProvincia()){/////////////////////////////////////////////////////////sismo o actual///////////////////////////
                case CARTAGO:
@@ -497,8 +531,17 @@ public class Sistema_Sismos {
             tabla_datos.setValueAt(sismo.getmaritimo(), i, 10);
             
             //Asignar la fecha al calendario
-            String fecha_hora = sismo.getFechaHora().getDay() + "/" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
-            tabla_datos.setValueAt(fecha_hora, i, 1);
+            String fecha;
+            if(sismo.getFechaHora().getMonth() == 0){
+                fecha = "0" + sismo.getFechaHora().getDay() + "/" + "12" + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+
+           }
+                       
+            else{
+                fecha = "0" + sismo.getFechaHora().getDay() + "/" + "0" + sismo.getFechaHora().getMonth() + "/" + sismo.getFechaHora().getYear() + " - " + sismo.getFechaHora().getHours() + ":" + sismo.getFechaHora().getMinutes();
+            }
+            
+            tabla_datos.setValueAt(fecha, i, 1);
             
         
         }
