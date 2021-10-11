@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vista;
 
 import Clases.Provincia;
@@ -387,7 +383,8 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                                     if (contador_provincias_marcadas != 0){
 
                                         sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
-                                        System.out.println("El interesado se agrego con éxito");
+                                        
+                                        //Se intenta guardar el interesado en el excel
                                         try {
                                             sistema_sismo.GuardarExcelInteresados(interesadoAgregar);
                                         } catch (IOException ex) {
@@ -471,7 +468,8 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
                             if (contador_provincias_marcadas != 0){
 
                                 sistema_sismo.agregarInteresadosNotificaciones(interesadoAgregar);
-                                System.out.println("El interesado se agrego con éxito");
+                                
+                                //Se intenta guaradr el interesado en el excel
                                 try {
                                     sistema_sismo.GuardarExcelInteresados(interesadoAgregar);
                                 } catch (IOException ex) {
@@ -526,11 +524,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -551,9 +545,7 @@ public class VentanaAgregarInteresado extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaAgregarInteresado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 VentanaAgregarInteresado dialog = new VentanaAgregarInteresado(new javax.swing.JFrame(), true);

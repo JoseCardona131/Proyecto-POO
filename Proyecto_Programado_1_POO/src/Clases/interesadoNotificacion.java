@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Clases;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -24,6 +20,7 @@ import javax.activation.FileDataSource;
 
 public class interesadoNotificacion {
     
+    //Atributos
     private String nombre;
     private String correo;
     private String numeroTelefono;
@@ -37,7 +34,7 @@ public class interesadoNotificacion {
         this.correo = correo;
         this.numeroTelefono = numeroTelefono;
     }
-    
+    //Setters y Getters
     // Nombre del Interesado
     public String getNombre() {
         return nombre;
@@ -68,7 +65,7 @@ public class interesadoNotificacion {
     public ArrayList<Provincia> getProvinciasInteres(){
         return provinciasInteres;
     }
-    // ACME del Arreglo
+    // ACME del Arreglo de provincias
     // Agregar
     public boolean AgregarProvinciaInteres(Provincia provincia_a){
         for(Provincia actual : provinciasInteres){
@@ -99,11 +96,15 @@ public class interesadoNotificacion {
         return false;
      }
      
+     //Metodo para enviar una notificacion al correo
      public void enviarNotificacion(String destino){
+         //Se agregan los correos de destinario y el que lo envia
          String correoEnvia = "sistemasismos@gmail.com";
          String contra = "prpwvwessbkvezpj";
          String destinario = destino;
          //prpwvwessbkvezpj
+         //Se inicia unas propiedades
+         //Estas propiedades son para poder enviar un correo desde gmail
          Properties propiedad = new Properties();
          propiedad.put("mail.smtp.host", "smtp.gmail.com");
          propiedad.setProperty("mail.smtp.port", "587");
@@ -113,10 +114,10 @@ public class interesadoNotificacion {
          propiedad.setProperty("mail.smtp.auth", "true");
          propiedad.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
          
-
+         //Se inicia una sesion
          Session sesion = Session.getDefaultInstance(propiedad);
          
-         
+        //Se intenta crear el mensaje
         MimeMessage mensaje = new MimeMessage(sesion);
         try {
             mensaje.setFrom(new InternetAddress(correoEnvia));
@@ -129,7 +130,7 @@ public class interesadoNotificacion {
             Logger.getLogger(interesadoNotificacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
+        //Se intenta enviar el correo
         try {
             
             Transport t = sesion.getTransport("smtp");

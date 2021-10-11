@@ -6,16 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author jcard
- */
+
 public class Sismo {
     
     // Atributos
@@ -124,6 +116,7 @@ public class Sismo {
         return descripcion;
     }
     
+    //Latitud y longitud
     public void setLatitud(double Latitud) {
         this.Latitud = Latitud;
     }
@@ -143,6 +136,9 @@ public class Sismo {
     @Override
     public String toString(){
         
-        return "El nombre del sismo es: " + this.nombre;
-    }
+
+        
+        return "El nombre del sismo es: " + this.nombre + ", Profundidad: " + this.profundidad + ", Tipo de origen: " + this.tipoOrigen + ", Magnitud: " + this.magnitud + ", Localizacion: " + this.localizacion + 
+                ", Provincia: " + this.provincia + ", Maritimo: " + this.maritimo + ", Descripcion: " + this.descripcion + ", Latitud: " + this.Latitud + ", longitud: " + this.Longitud;
+    } 
 }

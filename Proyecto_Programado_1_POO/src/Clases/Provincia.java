@@ -5,10 +5,6 @@ package Clases;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/**
- *
- * @author jcard
- */
+//Enumeration para definir la provincia del sismo
 public enum Provincia 
 {CARTAGO,SANJOSE,ALAJUELA,HEREDIA,PUNTARENAS,LIMON,GUANACASTE,NA}

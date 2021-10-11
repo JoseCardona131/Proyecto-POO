@@ -373,6 +373,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
             
         }
     }
+    //Metodo para leer el archivo excel de interesados
     public static void leerArchivoInteresados() throws FileNotFoundException, IOException {
         FileInputStream archivo = new FileInputStream("InteresadosNotificaciones.xlsx");
         XSSFWorkbook libro = new XSSFWorkbook(archivo);
@@ -380,7 +381,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         
         int numero_Filas = hoja.getLastRowNum();
         
-        for(int i = 1;i <= numero_Filas; i++){
+        for(int i = 0;i <= numero_Filas; i++){
             Row fila = hoja.getRow(i);
             int numero_Columnas = fila.getLastCellNum();
             
@@ -489,15 +490,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
         new VentanaAgregarInteresado(this,true).setVisible(true);
     }//GEN-LAST:event_ApuntarseNotifActionPerformed
     
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) throws FileNotFoundException, IOException, NullPointerException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+   
         try{
         leerArchivoRegistroSismos(); 
         }
@@ -522,7 +516,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Ventana_Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ventana_Principal().setVisible(true);

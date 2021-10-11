@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vista;
 
 import Clases.Sistema_Sismos;
 
-/**
- *
- * @author XCPC
- */
+
 public class ventana_graficos_tabulares extends javax.swing.JDialog {
 
     private Sistema_Sismos sistema = new Sistema_Sismos();
@@ -77,7 +70,6 @@ public class ventana_graficos_tabulares extends javax.swing.JDialog {
 
  
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -100,7 +92,6 @@ public class ventana_graficos_tabulares extends javax.swing.JDialog {
         }
         //</editor-fold>
         String tipo = "";
-        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ventana_graficos_tabulares dialog = new ventana_graficos_tabulares(new javax.swing.JFrame(), true, tipo);

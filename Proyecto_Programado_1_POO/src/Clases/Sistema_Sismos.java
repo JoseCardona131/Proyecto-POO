@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Clases;
 
+//Importamos librerias necesarias
 import static Clases.Provincia.ALAJUELA;
 import static Clases.Provincia.CARTAGO;
 import static Clases.Provincia.GUANACASTE;
@@ -29,12 +26,10 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
-/**
- *
- * @author monge
- */
+
 public class Sistema_Sismos {
     
+    //Atributos
     private static ArrayList<Sismo> sismosRegistrados = new ArrayList();
     private static ArrayList<interesadoNotificacion> interesadosNotificaciones = new ArrayList();
 
@@ -101,14 +96,16 @@ public class Sistema_Sismos {
         return false;
     }
     
-    /*public boolean modificarSismoProvincia(Provincia provincia_c, Provincia nuevaProvincia){
+    //Modificar provincia
+    public boolean modificarSismoProvincia(Provincia provincia_c, Provincia nuevaProvincia){
         for(Sismo actual : sismosRegistrados){
-            if (actual.equals(provincia_c)){
+            if (actual.getProvincia().equals(provincia_c)){
+                actual.setProvincia(nuevaProvincia);
                 return true;
             }
         }
         return false;
-     }*/
+     }
     
     // Modificar Maritimo Sismo
     public boolean modificarSismoMaritimo(boolean maritimo, boolean nuevoMaritimo){
@@ -132,6 +129,7 @@ public class Sistema_Sismos {
         return false;
     }
     
+    //Consultar sismo
     public boolean consultarSismo(Sismo sismo){
         for(Sismo actual : sismosRegistrados){
             if(actual.getNombre().equals(sismo.getNombre())){
@@ -143,7 +141,7 @@ public class Sistema_Sismos {
         return false;
            
     }
-    
+    //Consultar sismo por nombre
     public boolean consultar_sismo_nombre(String nombre){
         for(Sismo actual : sismosRegistrados){
             if(actual.getNombre().equals(nombre)){
@@ -168,18 +166,21 @@ public class Sistema_Sismos {
     
     // Guardar en excel
     public void GuardarExcel(Sismo sismo) throws FileNotFoundException, IOException{
-        
+        //Abrimos el archivo de excel en la ultima fila
        FileInputStream myxlsx = new FileInputStream("InformacionSismos.xlsx");
        XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
        XSSFSheet worksheet = Sheet.getSheetAt(0);
        int lastRow=worksheet.getLastRowNum();
        Row row = worksheet.createRow(++lastRow);
        
+       //Recorremos la lista de sismos y se va a a buscar el sismo que se desea agregar al excel
        for(Sismo actual: sismosRegistrados){
+           //Se obtiene cada dato independiente y se agrega a la columna correspondiente
            if(actual.getNombre().equals(sismo.getNombre())){
                row.createCell(0).setCellValue(sismo.getNombre());
            }
            String fecha;
+           //En la fecha se revisa si el dia o el mes es menor a 10, para agregarle un "0" antes y no presentar errores
            if(actual.getFechaHora().equals(sismo.getFechaHora())){
                if(sismo.getFechaHora().getDay() < 10){
                    if(sismo.getFechaHora().getMonth() < 10){
@@ -289,7 +290,7 @@ public class Sistema_Sismos {
               row.createCell(8).setCellValue(sismo.getNombre());
           }
           
-          switch(sismo.getProvincia()){/////////////////////////////////////////////////////////sismo o actual///////////////////////////
+          switch(sismo.getProvincia()){
                case CARTAGO:
                     row.createCell(9).setCellValue("Cartago"); 
                     break;
@@ -316,7 +317,7 @@ public class Sistema_Sismos {
                     break;
             }
           
-          if(sismo.getmaritimo() == true){/////////////////////////////////////////////////////////sismo o actual///////////////////////////
+          if(sismo.getmaritimo() == true){
               row.createCell(10).setCellValue("Si");
           }
           
@@ -329,7 +330,7 @@ public class Sistema_Sismos {
           
        }
        
-       
+       //Se cierra el archivo y se guarda la informacion
        myxlsx.close();
        FileOutputStream output_file =new FileOutputStream(new File("InformacionSismos.xlsx"));  
        //write changes
@@ -438,6 +439,7 @@ public class Sistema_Sismos {
     
     // Guardar excel interesados
     public void GuardarExcelInteresados(interesadoNotificacion interesado) throws FileNotFoundException, IOException{
+        //Se abre el archivo y se coloca en la ultima fila
        FileInputStream myxlsx = new FileInputStream("InteresadosNotificaciones.xlsx");
        XSSFWorkbook Sheet = new XSSFWorkbook(myxlsx);
        XSSFSheet worksheet = Sheet.getSheetAt(0);
@@ -445,11 +447,9 @@ public class Sistema_Sismos {
        System.out.println(lastRow);
        Row row = worksheet.createRow(++lastRow);
        
-       //String hola = "hola";
-       /*row.createCell(1).setCellValue("Dr.Hola");
-       row.createCell(2).setCellValue("Dr.Hola2222");*/
-       
+       //Se recorre la lista de interesados yt se busca el interesado que se desea agregar al excel
        for(interesadoNotificacion actual: interesadosNotificaciones){
+           //Se obtiene cada dato individual y se agrega al excel
            if(actual.getNombre().equals(interesado.getNombre())){
                row.createCell(0).setCellValue(interesado.getNombre());
            }
@@ -503,10 +503,9 @@ public class Sistema_Sismos {
 
        }
        
-       
+       //Se cierra el excel y se guarda
        myxlsx.close();
        FileOutputStream output_file =new FileOutputStream(new File("InteresadosNotificaciones.xlsx"));  
-       //write changes
        Sheet.write(output_file);
        output_file.close();
        System.out.println(" is successfully written");
@@ -514,8 +513,10 @@ public class Sistema_Sismos {
     
     //Metodo para generar la tabla de datos
     public static DefaultTableModel cargarSismos(){
+        //Este es la primera fila para la tabla
         Object [] encabezado = {"Nombre", "Fecha y Hora", "Descripcion", "Magnitud", "Profundidad", "Origen", "Latitud", "Longitud","Localizacion","Provincia","Maritimo"};
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, sismosRegistrados.size());
+        //Recorremos la lista de sismos y agregamos a cada columna un dato del sismo actual
         for(int i = 0; i < tabla_datos.getRowCount(); i++){
             Sismo sismo = sismosRegistrados.get(i);
             //Asiganr datos a la tabla
@@ -545,14 +546,18 @@ public class Sistema_Sismos {
             
         
         }
+        //Se retorna la tabla
         return tabla_datos;
     }
     
     //Metodos para graficar los datos
     //Metodo para obtener la cantidad de sismos por provincia
     public JFreeChart cantidad_sismos_provincia(){
+        //Se crea mun histograma
         HistogramDataset datos = new HistogramDataset();
+        //Se crea una variable para cada provincia
         int cartago = 0, alajuela = 0, heredia = 0, guanacaste = 0, limon = 0, sanjose = 0,puntarenas = 0, NA = 0;
+        //Se obtiene cuantos sismos hay para cada provincia
         for(Sismo actual: sismosRegistrados){
             switch(actual.getProvincia()){
                 case CARTAGO:
@@ -582,10 +587,14 @@ public class Sistema_Sismos {
             }
         }
         
+        
         int cont = 0;
         int total = cartago+sanjose+alajuela+heredia+limon+puntarenas+guanacaste+NA;
         double cantidades[] = new double[total];
         
+        //Se hace varios for
+        //Para cada provincia y dependiendo de las veces que se repita se agrega ese numero al arreglo
+       
         for(int i = 0; i < cartago; i++){
             cantidades[cont] = 3;
             cont++;
@@ -627,7 +636,7 @@ public class Sistema_Sismos {
         }
         
         
-        
+        //Se asigna al histograma el arreglo
         datos.addSeries("Cantidad de Sismos por Provincia", cantidades, 20);
         
         JFreeChart grafica = ChartFactory.createHistogram("Cantidad de Sismos por Provincia", "Provincias", "Cantidad", datos, PlotOrientation.VERTICAL, true, true, false);
@@ -638,7 +647,9 @@ public class Sistema_Sismos {
     //Metodo para pobtenr canbtidad de sismos por origen
     public JFreeChart cantidad_sismos_origen(){
         DefaultPieDataset datos = new DefaultPieDataset();
+        
         int subduccion = 0, choque_placas = 0, tectonico_falla_local = 0, intra_placa = 0, deformacion_interna = 0;
+        //Se obtiene cuantos sismos hay de cada origen
         for(Sismo actual: sismosRegistrados){
             switch(actual.getOrigen()){
                 case SUBDUCCION:
@@ -659,24 +670,24 @@ public class Sistema_Sismos {
             }
         }
         
-        // Se va a sacar el porcentaje de cada
 
-        
+        //Se agrega a la grafica los datos
         datos.setValue("Subduccion", subduccion);
         datos.setValue("Choque de Placas", choque_placas);
         datos.setValue("Tectonico por falla local", tectonico_falla_local);
         datos.setValue("Intra placa", intra_placa);
         datos.setValue("Deformacion interna", deformacion_interna);
-        JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, false, false);
-        
+        JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos,20 , true, true, true, true, false, false);
         return grafica; 
     }
     
     //Cantidad de sismos por rango de fechas
      public DefaultTableModel cantidad_sismos_rango(){
+         //Este sera la primera fila
         Object [] encabezado = {"Rango Fechas", "Cantidad"};
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, 6);
         int enero_febrero=0, marzo_abril=0, mayo_junio=0, julio_agosto=0, octubre_septiembre=0, noviembre_diciembre=0;
+        //Se obtiene la cantidad de sismos en el rango de fechas de dos meses
         for(Sismo actual: sismosRegistrados){
             if (actual.getFechaHora().getMonth() == 1 || actual.getFechaHora().getMonth() == 2){
                 enero_febrero +=1;
@@ -697,7 +708,8 @@ public class Sistema_Sismos {
                 noviembre_diciembre += 1;
             }
         }
-
+        
+        //Se agrega los datos a la tabla
         tabla_datos.setValueAt("01/01 - 28/02", 0, 0);
         tabla_datos.setValueAt(enero_febrero, 0, 1);
         
@@ -727,6 +739,7 @@ public class Sistema_Sismos {
     public JFreeChart cantidadSismosMes(){
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
         int enero=0, febrero=0, marzo=0, abril=0, mayo=0, junio=0, julio=0, agosto=0, septiembre=0, octubre=0, noviembre=0, diciembre=0;
+        //Se obtiene la cantidad de sismos en cada mes
         for(Sismo actual: sismosRegistrados){
             switch(actual.getFechaHora().getMonth()){
                 case 1:
@@ -770,7 +783,7 @@ public class Sistema_Sismos {
         
  
 
-        
+        //Se agregan los datos a la grafica
         datos.addValue(enero, "Enero", "Cantidad");
         datos.addValue(febrero, "Febrero", "Cantidad");
         datos.addValue(marzo, "Marzo", "Cantidad");
@@ -791,9 +804,11 @@ public class Sistema_Sismos {
     
     //Cantidad de sismos por magnitud
     public DefaultTableModel cantidad_sismos_magnitud(){
+        //Este sera la primera fila
         Object [] encabezado = {"Magnitud", "Cantidad"};
         DefaultTableModel tabla_datos = new DefaultTableModel(encabezado, 8);
         int menor_2 = 0, _3 = 0, _4 = 0, _5 = 0, _6 = 0, _7 = 0, _9 = 0, _10 = 0;
+        //Se obtiene la cantidad de sismos por magnitudes
         for(Sismo actual: sismosRegistrados){
             if (actual.getMagnitud() < 2.0){
                 menor_2 +=1;
@@ -820,7 +835,8 @@ public class Sistema_Sismos {
                _10 += 1;
             }
         }
-
+        
+        //Se agrega los datos a la tabla
         tabla_datos.setValueAt("0.1 - 1.9", 0, 0);
         tabla_datos.setValueAt(menor_2, 0, 1);
         
