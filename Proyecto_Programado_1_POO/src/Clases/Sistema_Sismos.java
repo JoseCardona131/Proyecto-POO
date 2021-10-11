@@ -583,7 +583,8 @@ public class Sistema_Sismos {
         }
         
         int cont = 0;
-        double cantidades[] = new double[cartago+sanjose+alajuela+heredia+limon+puntarenas+guanacaste+NA];
+        int total = cartago+sanjose+alajuela+heredia+limon+puntarenas+guanacaste+NA;
+        double cantidades[] = new double[total];
         
         for(int i = 0; i < cartago; i++){
             cantidades[cont] = 3;
@@ -624,7 +625,8 @@ public class Sistema_Sismos {
             cantidades[cont] = 9;
             cont++;
         }
-
+        
+        
         
         datos.addSeries("Cantidad de Sismos por Provincia", cantidades, 20);
         
@@ -663,8 +665,8 @@ public class Sistema_Sismos {
         datos.setValue("Subduccion", subduccion);
         datos.setValue("Choque de Placas", choque_placas);
         datos.setValue("Tectonico por falla local", tectonico_falla_local);
-        datos.setValue("Intra placa", choque_placas);
-        datos.setValue("Deformacion interna", intra_placa);
+        datos.setValue("Intra placa", intra_placa);
+        datos.setValue("Deformacion interna", deformacion_interna);
         JFreeChart grafica = ChartFactory.createPieChart("Cantidad de Sismos por Origen", datos, datos, tectonico_falla_local, true, true, true, true, false, false);
         
         return grafica; 
